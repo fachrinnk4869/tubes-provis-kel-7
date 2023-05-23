@@ -1,9 +1,16 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:provider/provider.dart';
 import 'package:intl/intl.dart';
+import 'package:tubes_app/views/buka_investasi.dart';
 import 'package:tubes_app/views/input_profile_umkm.dart';
+import 'package:tubes_app/views/pengajuan_pendanaan.dart';
+
+import '../utils/loading_page.dart';
 
 
 class HomePage extends StatelessWidget {
@@ -363,7 +370,18 @@ class CircleSelect extends StatelessWidget {
     return Container(
         // decoration: BoxDecoration(border: Border.all()),
         padding: EdgeInsets.only(top: 30, left: 15),
-        child: Column(
+        child: 
+        InkWell(
+                  onTap: () {
+                    // Get.to(() => RegisterPage());
+                    // Get.to(() => PengajuanPendanaan());
+                    Get.to(() => LoadingPage());
+                    Timer(const Duration(seconds: 2), () {
+                      // Get.to(() => HomePage());
+                      Get.to(() => BukaInvestasi());
+                    });
+                  },
+                  child: Column(
             // mainAxisAlignment: MainAxisAlignment.start,
             children: [
               Container(
@@ -384,7 +402,10 @@ class CircleSelect extends StatelessWidget {
                     style: TextStyle(
                         fontFamily: 'Poppins', fontWeight: FontWeight.bold),
                   )),
-            ]));
+            ])
+                ),
+        
+        );
   }
 }
 
