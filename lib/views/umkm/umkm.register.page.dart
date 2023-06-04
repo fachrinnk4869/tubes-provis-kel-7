@@ -1,0 +1,303 @@
+import 'dart:async';
+
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:hexcolor/hexcolor.dart';
+import 'package:tubes_app/views/admin/login.page.dart';
+import 'package:tubes_app/views/auth/login_page.dart';
+import 'package:tubes_app/views/utils/loading_page.dart';
+import 'package:tubes_app/views/widgets/button.form.dart';
+import 'package:tubes_app/views/widgets/text.form.dart';
+
+class UmkmRegisterPage extends StatefulWidget {
+  const UmkmRegisterPage({super.key});
+
+  @override
+  State<UmkmRegisterPage> createState() => _UmkmRegisterPageState();
+}
+
+class _UmkmRegisterPageState extends State<UmkmRegisterPage> {
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController nameController = TextEditingController();
+  final TextEditingController contactController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
+  final TextEditingController passwordVerifyController =
+      TextEditingController();
+  @override
+  Widget build(BuildContext context) {
+    return WillPopScope(
+      onWillPop: () async {
+        showDialog(
+          context: context,
+          barrierDismissible: false,
+          builder: (BuildContext context) {
+            return LoadingPage();
+          },
+        );
+
+        Future.delayed(Duration(seconds: 2), () {
+          // Navigator.popUntil(context, ModalRoute.withName('/TransmittingPage'));
+          Navigator.pop(context);
+          Navigator.pop(context);
+          Navigator.pop(context);
+        });
+
+        // Mengabaikan perintah "back" saat loadingPage sedang ditampilkan
+        return false;
+      },
+      child: Container(
+        width: double.infinity,
+        child: Container(
+          decoration: const BoxDecoration(
+            gradient: LinearGradient(
+              begin: Alignment.center,
+              end: Alignment.bottomCenter,
+              colors: [
+                Colors.white70,
+                Colors.grey,
+              ],
+            ),
+          ),
+          child: Scaffold(
+            backgroundColor: Colors.transparent,
+            body: SingleChildScrollView(
+              child: SafeArea(
+                child: Column(
+                  children: [
+                    Container(
+                      decoration: BoxDecoration(
+                        color: Colors.transparent,
+                        borderRadius: BorderRadius.circular(16),
+                      ),
+                      // color: Colors.grey,
+                      width: 300,
+                      padding: const EdgeInsets.all(15.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Container(
+                            alignment: Alignment.center,
+                            child: Center(
+                              child: Column(
+                                children: [
+                                  Image.asset(
+                                    "public/images/logo.png",
+                                    height: 90,
+                                  ),
+                                  Text(
+                                    "Silahkan Isi Data Diri Anda Dengan Benar",
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                        color: Colors.black,
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.w500),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    // Text Pendaftaran
+                    Container(
+                      // height: 20,
+                      padding: const EdgeInsets.only(
+                          right: 30, left: 30, top: 0, bottom: 7),
+                      child: Column(
+                        children: [
+                          // 2. Nama Lengkap
+                          Align(
+                            alignment: Alignment.centerLeft,
+                            child: Text("Nama Investor"),
+                          ),
+                          Padding(padding: EdgeInsets.only(bottom: 15)),
+                          TextForm(
+                            controller: nameController,
+                            text: 'Nadhief Athallah Isya',
+                            obscureText: false,
+                            textInputType: TextInputType.name,
+                          ),
+                          const SizedBox(
+                            height: 25,
+                          ),
+
+                          // 3. Contact
+                          Align(
+                            alignment: Alignment.centerLeft,
+                            child: Text("Nomor Telepon Aktif"),
+                          ),
+                          Padding(padding: EdgeInsets.only(bottom: 15)),
+                          TextForm(
+                            controller: contactController,
+                            text: '08123456789',
+                            obscureText: false,
+                            textInputType: TextInputType.number,
+                          ),
+                          const SizedBox(
+                            height: 25,
+                          ),
+
+                          // 1. Email
+                          Align(
+                            alignment: Alignment.centerLeft,
+                            child: Text("Email"),
+                          ),
+                          Padding(padding: EdgeInsets.only(bottom: 15)),
+                          TextForm(
+                            controller: emailController,
+                            text: 'nadhief@gmail.com',
+                            obscureText: false,
+                            textInputType: TextInputType.emailAddress,
+                          ),
+                          const SizedBox(
+                            height: 25,
+                          ),
+
+                          // 4. Password
+                          Align(
+                            alignment: Alignment.centerLeft,
+                            child: Text("Password"),
+                          ),
+                          Padding(padding: EdgeInsets.only(bottom: 15)),
+                          TextForm(
+                            controller: passwordController,
+                            text: '****************',
+                            obscureText: true,
+                            textInputType: TextInputType.text,
+                          ),
+                          const SizedBox(
+                            height: 25,
+                          ),
+
+                          // 5. Verify Password
+                          Align(
+                            alignment: Alignment.centerLeft,
+                            child: Text("Verifikasi Password"),
+                          ),
+                          Padding(padding: EdgeInsets.only(bottom: 15)),
+                          TextForm(
+                            controller: passwordVerifyController,
+                            text: '****************',
+                            obscureText: true,
+                            textInputType: TextInputType.text,
+                          ),
+
+                          const SizedBox(
+                            height: 40,
+                          ),
+                          Padding(
+                            padding: EdgeInsets.only(left: 65, right: 65),
+                            child: InkWell(
+                              onTap: () {
+                                showDialog(
+                                  context: context,
+                                  barrierDismissible: false,
+                                  builder: (BuildContext context) {
+                                    return LoadingPage();
+                                  },
+                                );
+
+                                Future.delayed(Duration(seconds: 2), () {
+                                  Navigator.push(
+                                    context,
+                                    PageRouteBuilder(
+                                      transitionDuration: Duration(
+                                          milliseconds:
+                                              500), // Durasi animasi transisi
+                                      pageBuilder: (context, animation,
+                                          secondaryAnimation) {
+                                        return SlideTransition(
+                                          position: Tween<Offset>(
+                                            begin: Offset(1.0,
+                                                0.0), // Awal posisi halaman
+                                            end: Offset
+                                                .zero, // Akhir posisi halaman (posisi asli)
+                                          ).animate(animation),
+                                          child: InvestorLoginPage(),
+                                        );
+                                      },
+                                    ),
+                                  );
+                                });
+                              },
+                              child: ButtonForm(text: "Daftar"),
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 5,
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              const Text(
+                                "Sudah punya akun?",
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 16,
+                                ),
+                              ),
+                              InkWell(
+                                onTap: () {
+                                  showDialog(
+                                    context: context,
+                                    barrierDismissible: false,
+                                    builder: (BuildContext context) {
+                                      return LoadingPage();
+                                    },
+                                  );
+
+                                  Future.delayed(Duration(seconds: 2), () {
+                                    Navigator.push(
+                                      context,
+                                      PageRouteBuilder(
+                                        transitionDuration: Duration(
+                                            milliseconds:
+                                                500), // Durasi animasi transisi
+                                        pageBuilder: (context, animation,
+                                            secondaryAnimation) {
+                                          return SlideTransition(
+                                            position: Tween<Offset>(
+                                              begin: Offset(1.0,
+                                                  0.0), // Awal posisi halaman
+                                              end: Offset
+                                                  .zero, // Akhir posisi halaman (posisi asli)
+                                            ).animate(animation),
+                                            child: InvestorLoginPage(),
+                                          );
+                                        },
+                                      ),
+                                    );
+                                  });
+                                },
+                                child: Text(
+                                  " Masuk",
+                                  style: TextStyle(
+                                      color: HexColor("#F7941D"),
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 16),
+                                ),
+                              ),
+                            ],
+                          ),
+
+                          const SizedBox(
+                            height: 15,
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
