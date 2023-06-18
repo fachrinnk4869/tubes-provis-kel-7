@@ -12,10 +12,7 @@ class LandingPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Timer(const Duration(seconds: 5), () {
-    //   Get.to(() => LoginPage());
-    // });
-    Future.delayed(Duration(seconds: 3), () {
+    Future.delayed(Duration(seconds: 2), () {
       Navigator.push(
         context,
         PageRouteBuilder(

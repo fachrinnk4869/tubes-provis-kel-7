@@ -44,6 +44,7 @@ dependencies:
   curved_navigation_bar: ^1.0.3
   fluttertoast: ^8.2.2
   url_launcher: ^6.0.0
+  tab_indicator_styler: ^2.0.0
 
 dev_dependencies:
   flutter_test:
@@ -100,6 +101,10 @@ flutter:
   - public/images/OutIcon.png
   - public/images/TelephoneIcon.png
   - public/images/SettingIcon.png
+  - public/images/history_icon.png
+  - public/images/scan_icon.png
+  - public/images/topup_icon.png
+  - public/images/withdraw_icon.png
   
   # To add assets to your application, add an assets section, like this:
   # assets:

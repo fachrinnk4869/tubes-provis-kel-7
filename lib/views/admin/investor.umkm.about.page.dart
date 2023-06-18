@@ -150,7 +150,94 @@ class _InvestorUMKMPageState extends State<InvestorUMKMPage> {
                       SizedBox(
                         height: 20,
                       ),
-                      Text("test"),
+
+                      Container(
+                        width: 300,
+                        height: 50,
+                        child: CustomPaint(
+                          painter: LinePainter(),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    'Target',
+                                    style: TextStyle(
+                                      fontSize: 16,
+                                      color: Colors.white
+                                    ),
+                                  ),
+                                  SizedBox(height: 4),
+                                  Container(
+                                    width: 12,
+                                    height: 12,
+                                    decoration: BoxDecoration(
+                                      shape: BoxShape.circle,
+                                      color: HexColor("#F3AA08"),
+                                    ),
+                                  ),
+                                  SizedBox(height: 4),
+                                  Text(
+                                    'Rp. 10.000.000',
+                                    style: TextStyle(fontSize: 16),
+                                  ),
+                                ],
+                              ),
+                              Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    'Tenggat',
+                                    style: TextStyle(fontSize: 16,
+                                      color: Colors.white),
+                                  ),
+                                  SizedBox(height: 4),
+                                  Container(
+                                    width: 12,
+                                    height: 12,
+                                    decoration: BoxDecoration(
+                                      shape: BoxShape.circle,
+                                      color: HexColor("#F3AA08"),
+                                    ),
+                                  ),
+                                  SizedBox(height: 4),
+                                  Text(
+                                    '5 Bulan',
+                                    style: TextStyle(fontSize: 16),
+                                  ),
+                                ],
+                              ),
+                              Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    'Keuntungan',
+                                    style: TextStyle(fontSize: 16,
+                                      color: Colors.white),
+                                  ),
+                                  SizedBox(height: 4),
+                                  Container(
+                                    width: 12,
+                                    height: 12,
+                                    decoration: BoxDecoration(
+                                      shape: BoxShape.circle,
+                                      color: HexColor("#F3AA08"),
+                                    ),
+                                  ),
+                                  SizedBox(height: 4),
+                                  Text(
+                                    '5%',
+                                    style: TextStyle(fontSize: 16),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+
                       SizedBox(
                         height: 20,
                       ),
@@ -430,6 +517,25 @@ class _InvestorUMKMPageState extends State<InvestorUMKMPage> {
         ),
       ),
     );
+  }
+}
+
+class LinePainter extends CustomPainter {
+  @override
+  void paint(Canvas canvas, Size size) {
+    final paint = Paint()
+      ..color = HexColor("#202441")
+      ..strokeWidth = 2.0;
+
+    final startPoint = Offset(0, size.height / 2);
+    final endPoint = Offset(size.width, size.height / 2);
+
+    canvas.drawLine(startPoint, endPoint, paint);
+  }
+
+  @override
+  bool shouldRepaint(CustomPainter oldDelegate) {
+    return false;
   }
 }
 

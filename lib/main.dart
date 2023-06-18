@@ -1,24 +1,28 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:provider/provider.dart';
 import 'package:tubes_app/views/admin/daftar.investasiku.root.dart';
 import 'package:tubes_app/views/admin/investasi.form.page.dart';
 import 'package:tubes_app/views/admin/investasiku.page.dart';
 import 'package:tubes_app/views/admin/investor.donation.page.dart';
 import 'package:tubes_app/views/admin/main/investor.history.page.dart';
-import 'package:tubes_app/views/admin/main/investor.home.dart';
 import 'package:tubes_app/views/admin/investor.topup.page.dart';
 import 'package:tubes_app/views/admin/login.page.dart';
-import 'package:tubes_app/views/admin/main/investor.home.dart';
+import 'package:tubes_app/views/admin/main/investor_home.dart';
 import 'package:tubes_app/views/admin/notifikasi.dart';
 import 'package:tubes_app/views/admin/main/investor.profile.dart';
 import 'package:tubes_app/views/admin/register.page.dart';
 import 'package:tubes_app/views/admin/root.home.dart';
+import 'package:tubes_app/views/admin/searchBarJelajah.page.dart';
 import 'package:tubes_app/views/main_pages/news_page.dart';
 import 'package:tubes_app/views/temp.dart';
 import 'package:tubes_app/views/admin/bayar.metode_umkm.dart';
+import 'package:tubes_app/views/testing2.dart';
+import 'package:tubes_app/views/try.dart';
 import 'package:tubes_app/views/umkm/notify.dart';
 import 'package:tubes_app/views/umkm/notify.pengajuan.peminjaman.dart';
 import 'package:tubes_app/views/umkm/pengajuan_pendanaan.dart';
+import 'package:tubes_app/views/umkm/umkm.register.page.dart';
 import 'package:tubes_app/views/umkm/umkm.tarik_saldo.page.dart';
 import 'package:tubes_app/views/umkm/umkm.root.home.dart';
 import 'package:tubes_app/views/utils/landing_page.dart';
@@ -31,7 +35,21 @@ import 'package:tubes_app/views/utils/role_page.dart';
 import 'package:tubes_app/views/main_home.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-void main() => runApp(const MyApp());
+void main() {
+  runApp(
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (context) => UserRegistrationModel()),
+        ChangeNotifierProvider(create: (context) => User2RegistrationModel()),
+        ChangeNotifierProvider(create: (context) => UserLoginModel()),
+        ChangeNotifierProvider(create: (context) => UserUmkmModel()),
+        ChangeNotifierProvider(create: (context) => UserInvestorModel()),
+        // ChangeNotifierProvider(create: (context) => xxxModel()),
+      ],
+      child: const MyApp(),
+    ),
+  );
+}
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -48,7 +66,7 @@ class MyApp extends StatelessWidget {
       // RiwayatPage(),
       // InvestorHistoryPage(),
       // InvestorProfilePage(),
-      // WelcomePage(),
+      WelcomePage(),
       // RolePage(),
       // CicilanPage(),
       // MetodePayment(),
@@ -67,8 +85,10 @@ class MyApp extends StatelessWidget {
       // InvestorHome(),
       // InvestorTopupPage(),
       // HomeRootInvestor(),
-      HomeRootUMKM(),
+      
+      // HomeRootUMKM(),
       // UMKMPengajuanPendanaan(),
+      // UMKMProfilePage(),
       // InvestasikuPage(),
       // RootInvestasiku(),
       // TestingPage(),

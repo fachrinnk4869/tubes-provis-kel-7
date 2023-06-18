@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:hexcolor/hexcolor.dart';
+import 'package:tubes_app/views/admin/root.home.dart';
 import 'package:tubes_app/views/utils/loading_page.dart';
 
 class InvestorHistoryPage extends StatefulWidget {
@@ -63,10 +64,33 @@ class _InvestorHistoryPageState extends State<InvestorHistoryPage> {
                     },
                   );
 
+                  // Future.delayed(Duration(seconds: 2), () {
+                  //   Navigator.pop(context);
+                  //   Navigator.pop(context);
+                  //   Navigator.pop(context);
+                  // });
+                  showDialog(
+                    context: context,
+                    barrierDismissible: false,
+                    builder: (BuildContext context) {
+                      return LoadingPage();
+                    },
+                  );
+
                   Future.delayed(Duration(seconds: 2), () {
-                    Navigator.pop(context);
-                    Navigator.pop(context);
-                    Navigator.pop(context);
+                    Navigator.push(
+                      context,
+                      PageRouteBuilder(
+                        transitionDuration: Duration(
+                            milliseconds: 500), // Durasi animasi transisi
+                        pageBuilder: (context, animation, secondaryAnimation) {
+                          return FadeTransition(
+                            opacity: animation,
+                            child: HomeRootInvestor(),
+                          );
+                        },
+                      ),
+                    );
                   });
                 },
               ),
@@ -173,7 +197,6 @@ class _InvestorHistoryPageState extends State<InvestorHistoryPage> {
                         SizedBox(
                           height: 20,
                         ),
-
                         Container(
                           width: MediaQuery.of(context).size.width * 0.8,
                           height: 50,
@@ -337,7 +360,6 @@ class _InvestorHistoryPageState extends State<InvestorHistoryPage> {
                         SizedBox(
                           height: 20,
                         ),
-
                         Container(
                           width: MediaQuery.of(context).size.width * 0.8,
                           height: 50,
@@ -501,7 +523,6 @@ class _InvestorHistoryPageState extends State<InvestorHistoryPage> {
                         SizedBox(
                           height: 20,
                         ),
-
                         Container(
                           width: MediaQuery.of(context).size.width * 0.8,
                           height: 50,
@@ -665,7 +686,6 @@ class _InvestorHistoryPageState extends State<InvestorHistoryPage> {
                         SizedBox(
                           height: 20,
                         ),
-
                         Container(
                           width: MediaQuery.of(context).size.width * 0.8,
                           height: 50,
@@ -829,7 +849,6 @@ class _InvestorHistoryPageState extends State<InvestorHistoryPage> {
                         SizedBox(
                           height: 20,
                         ),
-
                         Container(
                           width: MediaQuery.of(context).size.width * 0.8,
                           height: 50,
@@ -912,9 +931,6 @@ class _InvestorHistoryPageState extends State<InvestorHistoryPage> {
                         SizedBox(
                           height: 20,
                         ),
-
-
-
                       ],
                     ),
                   ),

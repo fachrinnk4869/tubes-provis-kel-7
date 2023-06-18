@@ -3,6 +3,7 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:tubes_app/views/admin/root.home.dart';
+import 'package:tubes_app/views/umkm/umkm.home.dart';
 import 'package:tubes_app/views/umkm/umkm.root.home.dart';
 import 'package:tubes_app/views/utils/loading_page.dart';
 
@@ -150,15 +151,15 @@ class _UMKMTarikSaldoNotifyState extends State<UMKMTarikSaldoNotify> {
                             Colors.white, // Text Color (Foreground color)
                       ),
                       onPressed: () {
-                        showDialog(
-                          context: context,
-                          barrierDismissible: false,
-                          builder: (BuildContext context) {
-                            return LoadingPage();
-                          },
-                        );
+                        // showDialog(
+                        //   context: context,
+                        //   barrierDismissible: false,
+                        //   builder: (BuildContext context) {
+                        //     return LoadingPage();
+                        //   },
+                        // );
 
-                        Future.delayed(Duration(seconds: 2), () {
+                        Future.delayed(Duration(seconds: 0), () {
                           Navigator.push(
                             context,
                             PageRouteBuilder(
@@ -168,7 +169,7 @@ class _UMKMTarikSaldoNotifyState extends State<UMKMTarikSaldoNotify> {
                                   (context, animation, secondaryAnimation) {
                                 return FadeTransition(
                                   opacity: animation,
-                                  child: HomeRootUMKM(),
+                                  child: UMKMHome(),
                                 );
                               },
                             ),

@@ -26,7 +26,7 @@ class _WelcomePageState extends State<WelcomePage> {
     super.initState();
 
     // Tampilkan loadingPage selama 2 detik saat aplikasi baru dibuka
-    Future.delayed(Duration(seconds: 8), () {
+    Future.delayed(Duration(seconds: 1), () {
       Navigator.pushReplacement(
         context,
         PageRouteBuilder(
@@ -170,7 +170,7 @@ class _WelcomePageContentState extends State<WelcomePageContent> {
                                 },
                               );
 
-                              Future.delayed(Duration(seconds: 2), () {
+                              Future.delayed(Duration(seconds: 1), () {
                                 Navigator.push(
                                   context,
                                   PageRouteBuilder(

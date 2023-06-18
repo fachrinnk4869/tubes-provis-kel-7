@@ -32,19 +32,6 @@ class _RootUMKMKUState extends State<RootUMKMKU> {
           Navigator.pop(context);
           Navigator.pop(context);
           Navigator.pop(context);
-          Navigator.push(
-            context,
-            PageRouteBuilder(
-              transitionDuration:
-                  Duration(milliseconds: 500), // Durasi animasi transisi
-              pageBuilder: (context, animation, secondaryAnimation) {
-                return FadeTransition(
-                  opacity: animation,
-                  child: InvestasikuPage(),
-                );
-              },
-            ),
-          );
         });
 
         // Mengabaikan perintah "back" saat loadingPage sedang ditampilkan

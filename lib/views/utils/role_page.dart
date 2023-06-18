@@ -88,7 +88,7 @@ class _RolePageState extends State<RolePage> {
                                         },
                                       );
 
-                                      Future.delayed(Duration(seconds: 2), () {
+                                      Future.delayed(Duration(seconds: 0), () {
                                         Navigator.push(
                                           context,
                                           PageRouteBuilder(
@@ -184,7 +184,7 @@ class _RolePageState extends State<RolePage> {
                                         },
                                       );
                                       
-                                      Future.delayed(Duration(seconds: 2), () {
+                                      Future.delayed(Duration(seconds: 0), () {
                                         Navigator.push(
                                           context,
                                           PageRouteBuilder(
