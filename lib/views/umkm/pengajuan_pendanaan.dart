@@ -3,10 +3,16 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:get/get.dart';
+import 'package:provider/provider.dart';
+import 'package:tubes_app/model/model.pengajuanPeminjaman.dart';
+import 'package:tubes_app/model/model.userUmkm.dart';
 import 'package:tubes_app/views/umkm/notify.pengajuan.peminjaman.dart';
+import 'package:tubes_app/views/umkm/umkm.root.home.dart';
 import 'package:tubes_app/views/utils/loading_page.dart';
 import 'package:tubes_app/views/widgets/text.form.dart';
 import 'package:hexcolor/hexcolor.dart';
+
+import '../widgets/button.form.dart';
 
 class UMKMPengajuanPendanaan extends StatefulWidget {
   const UMKMPengajuanPendanaan({super.key});
@@ -19,16 +25,15 @@ class _UMKMPengajuanPendanaan extends State<UMKMPengajuanPendanaan> {
   bool isChecked = false; // Status input checkbox
   bool isButtonEnabled = false; // Status tombol submit
 
-  void toggleCheckbox() {
-    showDialog(
-      context: context,
-      barrierDismissible: false,
-      builder: (BuildContext context) {
-        return LoadingPage();
-      },
-    );
+  // Controller untuk kolom nama dan deskripsi
+  final TextEditingController namaController = TextEditingController();
+  final TextEditingController deskripsiController = TextEditingController();
+  final TextEditingController jmlhpengajuanController = TextEditingController();
+  final TextEditingController jangkawaktuController = TextEditingController();
+  final TextEditingController keuntunganController = TextEditingController();
 
-    Future.delayed(Duration(seconds: 2), () {
+  void toggleCheckbox() {
+    Future.delayed(Duration(seconds: 0), () {
       Navigator.push(
         context,
         PageRouteBuilder(
@@ -54,13 +59,6 @@ class _UMKMPengajuanPendanaan extends State<UMKMPengajuanPendanaan> {
     }
   }
 
-  // PengajuanPendanaan({Key? key}) : super(key: key);
-  final TextEditingController jmlhpengajuanController = TextEditingController();
-  final TextEditingController jangkawaktuController = TextEditingController();
-  final TextEditingController passwordController = TextEditingController();
-  final TextEditingController passwordVerifyController =
-      TextEditingController();
-
   @override
   Widget build(BuildContext context) {
     Color getColor(Set<MaterialState> states) {
@@ -77,18 +75,7 @@ class _UMKMPengajuanPendanaan extends State<UMKMPengajuanPendanaan> {
 
     return WillPopScope(
       onWillPop: () async {
-        showDialog(
-          context: context,
-          barrierDismissible: false,
-          builder: (BuildContext context) {
-            return LoadingPage();
-          },
-        );
-
-        Future.delayed(Duration(seconds: 2), () {
-          // Navigator.popUntil(context, ModalRoute.withName('/TransmittingPage'));
-          Navigator.pop(context);
-          Navigator.pop(context);
+        Future.delayed(Duration(seconds: 0), () {
           Navigator.pop(context);
         });
 
@@ -157,221 +144,198 @@ class _UMKMPengajuanPendanaan extends State<UMKMPengajuanPendanaan> {
                       height: 20,
                     ),
                     // Text Pendaftaran
-                    Container(
-                      // height: 20,
-                      padding: const EdgeInsets.only(
-                          right: 25, left: 25, top: 0, bottom: 7),
-                      child: Column(
-                        children: [
-                          Align(
-                            alignment: Alignment.centerLeft,
-                            child: Text("Jumlah Pengajuan Pinjaman"),
-                          ),
-                          Padding(padding: EdgeInsets.only(bottom: 15)),
-                          TextForm(
-                            controller: jmlhpengajuanController,
-                            text: 'Rp. 200.000.000',
-                            obscureText: false,
-                            textInputType: TextInputType.number,
-                          ),
-                          SizedBox(
-                            height: 15,
-                          ),
-                          Align(
-                            alignment: Alignment.centerLeft,
-                            child: Text("Rincian Anggaran Biaya"),
-                          ),
-                          SizedBox(
-                            height: 10,
-                          ),
-                          Container(
-                            height: 55,
-                            decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius: BorderRadius.circular(6),
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: Colors.black,
-                                    blurRadius: 2,
-                                  ),
-                                ]),
-                            alignment: Alignment.centerLeft,
-                            child: Row(
-                              children: [
-                                Padding(
-                                  padding: const EdgeInsets.only(left: 10.0),
-                                  child: ElevatedButton.icon(
-                                    onPressed: () async {
-                                      FilePickerResult? result =
-                                          await FilePicker.platform.pickFiles();
-                                      if (result != null) {
-                                        PlatformFile file = result.files.first;
-                                        // Gunakan file yang dipilih
-                                        print('Path file:${file.path}');
+                    Consumer<UserUmkmModel>(builder: (context, umkmModel, _) {
+                      return Consumer<PengajuanPeminjamanModel>(
+                          builder: (context, registrationModel, _) {
+                        return Container(
+                          // height: 20,
+                          padding: const EdgeInsets.only(
+                              right: 25, left: 25, top: 0, bottom: 7),
+                          child: Column(
+                            children: [
+                              Align(
+                                alignment: Alignment.centerLeft,
+                                child: Text("Judul Peminjaman"),
+                              ),
+                              Padding(padding: EdgeInsets.only(bottom: 15)),
+                              TextForm(
+                                controller: namaController,
+                                text:
+                                    '', // Masukkan teks default atau kosong sesuai kebutuhan
+                                obscureText: false,
+                                textInputType: TextInputType.text,
+                              ),
+                              SizedBox(
+                                height: 15,
+                              ),
+                              Align(
+                                alignment: Alignment.centerLeft,
+                                child: Text("Deskripsi Singkat Peminjaman"),
+                              ),
+                              Padding(padding: EdgeInsets.only(bottom: 15)),
+                              TextForm(
+                                controller: deskripsiController,
+                                text:
+                                    '', // Masukkan teks default atau kosong sesuai kebutuhan
+                                obscureText: false,
+                                textInputType: TextInputType.text,
+                              ),
+                              SizedBox(
+                                height: 15,
+                              ),
+                              Align(
+                                alignment: Alignment.centerLeft,
+                                child: Text("Jumlah Pengajuan Pinjaman"),
+                              ),
+                              Padding(padding: EdgeInsets.only(bottom: 15)),
+                              TextForm(
+                                controller: jmlhpengajuanController,
+                                text: 'Rp. 200.000.000',
+                                obscureText: false,
+                                textInputType: TextInputType.number,
+                              ),
+                              SizedBox(
+                                height: 10,
+                              ),
+                              const SizedBox(
+                                height: 25,
+                              ),
+                              Align(
+                                alignment: Alignment.centerLeft,
+                                child: Text("Jangka Waktu"),
+                              ),
+                              Padding(padding: EdgeInsets.only(bottom: 15)),
+                              TextForm(
+                                controller: jangkawaktuController,
+                                text: '7 bulan',
+                                obscureText: false,
+                                textInputType: TextInputType.datetime,
+                              ),
+                              const SizedBox(
+                                height: 25,
+                              ),
+                              Align(
+                                alignment: Alignment.centerLeft,
+                                child: Text("Keuntungan PerBulan"),
+                              ),
+                              Padding(padding: EdgeInsets.only(bottom: 15)),
+                              TextForm(
+                                controller: keuntunganController,
+                                text: 'Rp. 0',
+                                obscureText: false,
+                                textInputType: TextInputType.number,
+                              ),
+                              const SizedBox(
+                                height: 40,
+                              ),
+                              Padding(
+                                padding: EdgeInsets.only(left: 65, right: 65),
+                                child: InkWell(
+                                  onTap: () {
+                                    final registration = PengajuanPeminjaman(
+                                      name: namaController.text,
+                                      desc: deskripsiController.text,
+                                      target: int.parse(
+                                          jmlhpengajuanController.text),
+                                      tenor:
+                                          int.parse(jangkawaktuController.text),
+                                      keuntungan:
+                                          int.parse(keuntunganController.text),
+                                    );
+
+                                    registrationModel
+                                        .registerPeminjaman(
+                                            registration, umkmModel.user.id)
+                                        .then((_) {
+                                      if (registrationModel.validationError ==
+                                          'kosong') {
+                                        showDialog(
+                                          context: context,
+                                          builder: (BuildContext context) {
+                                            return AlertDialog(
+                                              title: Text('Warning'),
+                                              content:
+                                                  Text('Mohon isi semua data'),
+                                              actions: [
+                                                TextButton(
+                                                  onPressed: () {
+                                                    Navigator.of(context)
+                                                        .pop(); // Close the dialog
+                                                  },
+                                                  child: Text('Close'),
+                                                ),
+                                              ],
+                                            );
+                                          },
+                                        );
+                                      } else {
+                                        Navigator.push(
+                                          context,
+                                          PageRouteBuilder(
+                                            transitionDuration:
+                                                Duration(milliseconds: 500),
+                                            pageBuilder: (context, animation,
+                                                secondaryAnimation) {
+                                              return SlideTransition(
+                                                position: Tween<Offset>(
+                                                  begin: Offset(1.0, 0.0),
+                                                  end: Offset.zero,
+                                                ).animate(animation),
+                                                child: NotifyPengajuanPage(),
+                                              );
+                                            },
+                                          ),
+                                        );
                                       }
-                                    },
-                                    style: ElevatedButton.styleFrom(
-                                      padding: EdgeInsets.zero,
-                                      backgroundColor: HexColor('#202441'),
-                                      onPrimary: HexColor('#202441'),
-                                      side: BorderSide(
-                                        color: HexColor('#202441'),
-                                      ),
-                                    ),
-                                    icon: Icon(
-                                      Icons.attach_file,
-                                      color: Colors.white,
-                                    ),
-                                    label: Padding(
-                                      padding:
-                                          const EdgeInsets.only(right: 10.0),
-                                      child: Text(
-                                        'Choose File',
-                                        style: TextStyle(
-                                            color: Colors.white,
-                                            fontSize: 12,
-                                            fontWeight: FontWeight.normal,
-                                            fontFamily: 'Poppins'),
-                                      ),
-                                    ),
-                                  ),
+                                    });
+                                  },
+                                  child: ButtonForm(text: "Simpan"),
                                 ),
-                                Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Text(
-                                    "Rincian Anggaran Biaya.xlsx",
-                                  ),
-                                )
-                              ],
-                            ),
+                              ),
+                            ],
                           ),
-                          const SizedBox(
-                            height: 25,
-                          ),
-                          Align(
-                            alignment: Alignment.centerLeft,
-                            child: Text("Jangka Waktu"),
-                          ),
-                          Padding(padding: EdgeInsets.only(bottom: 15)),
-                          TextForm(
-                            controller: jangkawaktuController,
-                            text: '7 bulan',
-                            obscureText: false,
-                            textInputType: TextInputType.datetime,
-                          ),
-                          const SizedBox(
-                            height: 25,
-                          ),
-                          Align(
-                            alignment: Alignment.centerLeft,
-                            child: Text("Potensi Pertumbuhan Bisnis"),
-                          ),
-                          SizedBox(
-                            height: 10,
-                          ),
-                          Container(
-                            height: 55,
-                            decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius: BorderRadius.circular(6),
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: Colors.black,
-                                    blurRadius: 2,
-                                  ),
-                                ]),
-                            alignment: Alignment.centerLeft,
-                            child: Row(
-                              children: [
-                                Padding(
-                                  padding: const EdgeInsets.only(left: 10.0),
-                                  child: ElevatedButton.icon(
-                                    onPressed: () async {
-                                      FilePickerResult? result =
-                                          await FilePicker.platform.pickFiles();
-                                      if (result != null) {
-                                        PlatformFile file = result.files.first;
-                                        // Gunakan file yang dipilih
-                                        print('Path file:${file.path}');
-                                      }
-                                    },
-                                    style: ElevatedButton.styleFrom(
-                                      padding: EdgeInsets.zero,
-                                      backgroundColor: HexColor('#202441'),
-                                      onPrimary: HexColor('#202441'),
-                                      side: BorderSide(
-                                        color: HexColor('#202441'),
-                                      ),
-                                    ),
-                                    icon: Icon(
-                                      Icons.attach_file,
-                                      color: Colors.white,
-                                    ),
-                                    label: Padding(
-                                      padding:
-                                          const EdgeInsets.only(right: 10.0),
-                                      child: Text(
-                                        'Choose File',
-                                        style: TextStyle(
-                                            color: Colors.white,
-                                            fontSize: 12,
-                                            fontWeight: FontWeight.normal,
-                                            fontFamily: 'Poppins'),
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Text(
-                                    "Rincian Anggaran Biaya.pdf",
-                                  ),
-                                )
-                              ],
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Checkbox(
-                          checkColor: Colors.white,
-                          value: isChecked,
-                          fillColor:
-                              MaterialStateProperty.resolveWith(getColor),
-                          onChanged: (bool? value) {
-                            setState(() {
-                              isChecked = value!;
-                              handleSubmit();
-                            });
-                          },
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(top: 15.0),
-                          child: Container(
-                            width: MediaQuery.of(context).size.width * 0.825,
-                            child: Text(
-                                "Saya setuju dengan syarat dan ketentuan yang berlaku dan telah ditentukan"),
-                          ),
-                        ),
-                      ],
-                    ),
-                    Center(
-                      child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          primary: HexColor("#202441"), // Background color
-                          onPrimary:
-                              Colors.white, // Text Color (Foreground color)
-                        ),
-                        onPressed: isButtonEnabled ? toggleCheckbox : null,
-                        child: Padding(
-                          padding: const EdgeInsets.only(left: 55, right: 55),
-                          child: Text("Selesai"),
-                        ),
-                      ),
-                    ),
+                        );
+                      });
+                    }),
+                    // Row(
+                    //   mainAxisAlignment: MainAxisAlignment.center,
+                    //   children: [
+                    //     // Checkbox(
+                    //     //   checkColor: Colors.white,
+                    //     //   value: isChecked,
+                    //     //   fillColor:
+                    //     //       MaterialStateProperty.resolveWith(getColor),
+                    //     //   onChanged: (bool? value) {
+                    //     //     setState(() {
+                    //     //       isChecked = value!;
+                    //     //       handleSubmit();
+                    //     //     });
+                    //     //   },
+                    //     // ),
+                    //     // Padding(
+                    //     //   padding: const EdgeInsets.only(top: 15.0),
+                    //     //   child: Container(
+                    //     //     width: MediaQuery.of(context).size.width * 0.825,
+                    //     //     child: Text(
+                    //     //         "Saya setuju dengan syarat dan ketentuan yang berlaku dan telah ditentukan"),
+                    //     //   ),
+                    //     // ),
+                    //   ],
+                    // ),
+                    // Center(
+                    //   child: ElevatedButton(
+                    //     style: ElevatedButton.styleFrom(
+                    //       primary: HexColor("#202441"), // Background color
+                    //       onPrimary:
+                    //           Colors.white, // Text Color (Foreground color)
+                    //     ),
+                    //     onPressed: isButtonEnabled ? toggleCheckbox : null,
+                    //     child: Padding(
+                    //       padding: const EdgeInsets.only(left: 55, right: 55),
+                    //       child: Text("Selesai"),
+                    //     ),
+                    //   ),
+                    // ),
                   ],
                 ),
               ),

@@ -18,19 +18,19 @@ class _InvestorTarikSaldoState extends State<InvestorTarikSaldo> {
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async {
-        showDialog(
-          context: context,
-          barrierDismissible: false,
-          builder: (BuildContext context) {
-            return LoadingPage();
-          },
-        );
+        // showDialog(
+        //   context: context,
+        //   barrierDismissible: false,
+        //   builder: (BuildContext context) {
+        //     return LoadingPage();
+        //   },
+        // );
 
-        Future.delayed(Duration(seconds: 2), () {
+        Future.delayed(Duration(seconds: 0), () {
           // Navigator.popUntil(context, ModalRoute.withName('/TransmittingPage'));
           Navigator.pop(context);
-          Navigator.pop(context);
-          Navigator.pop(context);
+          // Navigator.pop(context);
+          // Navigator.pop(context);
         });
 
         // Mengabaikan perintah "back" saat loadingPage sedang ditampilkan
@@ -73,7 +73,6 @@ class _InvestorTarikSaldoState extends State<InvestorTarikSaldo> {
                     ),
                     Container(
                       width: MediaQuery.of(context).size.width * 0.75,
-                      height: MediaQuery.of(context).size.height * 0.35,
                       decoration: BoxDecoration(
                         color: Colors.white,
                         borderRadius: BorderRadius.circular(10),
@@ -127,7 +126,7 @@ class _InvestorTarikSaldoState extends State<InvestorTarikSaldo> {
                                   ),
                                   labelText: "1.000.000.000", //babel text
                                   hintText:
-                                      "Masukan Nominal Cicilan", //hint text
+                                      "Masukan Nominal", //hint text
                                   border: InputBorder.none,
                                   contentPadding: const EdgeInsets.all(5),
                                 ),
@@ -179,15 +178,15 @@ class _InvestorTarikSaldoState extends State<InvestorTarikSaldo> {
                                       .white, // Text Color (Foreground color)
                                 ),
                                 onPressed: () {
-                                  showDialog(
-                                    context: context,
-                                    barrierDismissible: false,
-                                    builder: (BuildContext context) {
-                                      return LoadingPage();
-                                    },
-                                  );
+                                  // showDialog(
+                                  //   context: context,
+                                  //   barrierDismissible: false,
+                                  //   builder: (BuildContext context) {
+                                  //     return LoadingPage();
+                                  //   },
+                                  // );
 
-                                  Future.delayed(Duration(seconds: 2), () {
+                                  Future.delayed(Duration(seconds: 0), () {
                                     Navigator.push(
                                       context,
                                       PageRouteBuilder(

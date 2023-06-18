@@ -19,32 +19,9 @@ class _RootInvestasikuState extends State<RootInvestasiku> {
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async {
-        showDialog(
-          context: context,
-          barrierDismissible: false,
-          builder: (BuildContext context) {
-            return LoadingPage();
-          },
-        );
-
-        Future.delayed(Duration(seconds: 2), () {
+        Future.delayed(Duration(seconds: 0), () {
           // Navigator.popUntil(context, ModalRoute.withName('/TransmittingPage'));
           Navigator.pop(context);
-          Navigator.pop(context);
-          Navigator.pop(context);
-          Navigator.push(
-            context,
-            PageRouteBuilder(
-              transitionDuration:
-                  Duration(milliseconds: 500), // Durasi animasi transisi
-              pageBuilder: (context, animation, secondaryAnimation) {
-                return FadeTransition(
-                  opacity: animation,
-                  child: InvestasikuPage(),
-                );
-              },
-            ),
-          );
         });
 
         // Mengabaikan perintah "back" saat loadingPage sedang ditampilkan

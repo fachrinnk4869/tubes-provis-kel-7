@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
+import 'package:tubes_app/model/model.investor.dart';
+import 'package:tubes_app/model/model.pengajuanPeminjaman.dart';
 import 'package:tubes_app/views/admin/daftar.investasiku.root.dart';
 import 'package:tubes_app/views/admin/investasi.form.page.dart';
 import 'package:tubes_app/views/admin/investasiku.page.dart';
@@ -35,6 +37,12 @@ import 'package:tubes_app/views/utils/role_page.dart';
 import 'package:tubes_app/views/main_home.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import 'model/model.user2Registration.dart';
+import 'model/model.userLogin.dart';
+import 'model/model.eventTampil.dart';
+import 'model/model.userRegistration.dart';
+import 'model/model.userUmkm.dart';
+
 void main() {
   runApp(
     MultiProvider(
@@ -43,7 +51,11 @@ void main() {
         ChangeNotifierProvider(create: (context) => User2RegistrationModel()),
         ChangeNotifierProvider(create: (context) => UserLoginModel()),
         ChangeNotifierProvider(create: (context) => UserUmkmModel()),
+        ChangeNotifierProvider(create: (context) => EventTampilModel()),
         ChangeNotifierProvider(create: (context) => UserInvestorModel()),
+        ChangeNotifierProvider(create: (context) => PengajuanPeminjamanModel()),
+        // ChangeNotifierProvider(
+        // create: (context) => PeminjamanRegistrationModel()),
         // ChangeNotifierProvider(create: (context) => xxxModel()),
       ],
       child: const MyApp(),
@@ -60,13 +72,13 @@ class MyApp extends StatelessWidget {
     return const GetMaterialApp(
       // primaryColor: HexColor('#F5F5F5'),
       debugShowCheckedModeBanner: false,
-      home: 
-      // MetodePayment(),
-      // LandingPage(),
-      // RiwayatPage(),
-      // InvestorHistoryPage(),
-      // InvestorProfilePage(),
-      WelcomePage(),
+      home:
+          // MetodePayment(),
+          // LandingPage(),
+          // RiwayatPage(),
+          // InvestorHistoryPage(),
+          // InvestorProfilePage(),
+          WelcomePage(),
       // RolePage(),
       // CicilanPage(),
       // MetodePayment(),
@@ -85,7 +97,7 @@ class MyApp extends StatelessWidget {
       // InvestorHome(),
       // InvestorTopupPage(),
       // HomeRootInvestor(),
-      
+
       // HomeRootUMKM(),
       // UMKMPengajuanPendanaan(),
       // UMKMProfilePage(),
@@ -94,7 +106,6 @@ class MyApp extends StatelessWidget {
       // TestingPage(),
       // MainHome(),
       // NewsPage(),
-
     );
   }
 }

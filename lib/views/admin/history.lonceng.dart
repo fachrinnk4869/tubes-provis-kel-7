@@ -47,7 +47,37 @@ class _InvestorHistoryPageState extends State<InvestorHistoryPage> {
           ),
           child: Scaffold(
             appBar: AppBar(
-              automaticallyImplyLeading: false,
+              leading: IconButton(
+                icon: Image.asset(
+                  "public/images/logo_back.png",
+                  height: 20,
+                ),
+                onPressed: () {
+                  // showDialog(
+                  //   context: context,
+                  //   barrierDismissible: false,
+                  //   builder: (BuildContext context) {
+                  //     return LoadingPage();
+                  //   },
+                  // );
+
+                  Future.delayed(Duration(seconds: 0), () {
+                    Navigator.push(
+                      context,
+                      PageRouteBuilder(
+                        transitionDuration: Duration(
+                            milliseconds: 500), // Durasi animasi transisi
+                        pageBuilder: (context, animation, secondaryAnimation) {
+                          return FadeTransition(
+                            opacity: animation,
+                            child: HomeRootInvestor(),
+                          );
+                        },
+                      ),
+                    );
+                  });
+                },
+              ),
               title: Text('History'),
               backgroundColor: HexColor("#202441"),
             ),

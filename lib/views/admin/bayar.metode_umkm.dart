@@ -4,6 +4,7 @@ import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
+import 'package:tubes_app/model/model.investor.dart';
 import 'package:tubes_app/views/admin/notify/investor.notify.topup.dart';
 import 'package:tubes_app/views/admin/root.home.dart';
 import 'package:tubes_app/views/umkm/umkm.root.home.dart';
@@ -63,8 +64,8 @@ class _MetodePaymentState extends State<MetodePayment> {
               child: SafeArea(
                 child: Container(
                   alignment: Alignment.center,
-                  child:
-                      Consumer<UserInvestorModel>(builder: (context, investorModel, _) {
+                  child: Consumer<UserInvestorModel>(
+                      builder: (context, investorModel, _) {
                     return Column(
                       children: [
                         Text(
@@ -402,20 +403,20 @@ class _MetodePaymentState extends State<MetodePayment> {
                                 ),
                                 onPressed: () {
                                   final investor = UserInvestor(
-                                              id: investorModel.user.id,
-                                              saldo: investorModel.saldo,
-                                            );
+                                    id: investorModel.user.id,
+                                    saldo: investorModel.saldo,
+                                  );
                                   investorModel
                                       .updateSaldoInvestor(
                                           investor, investorModel.user.id)
                                       .then((_) {
-                                    showDialog(
-                                      context: context,
-                                      barrierDismissible: false,
-                                      builder: (BuildContext context) {
-                                        return LoadingPage();
-                                      },
-                                    );
+                                    // showDialog(
+                                    //   context: context,
+                                    //   barrierDismissible: false,
+                                    //   builder: (BuildContext context) {
+                                    //     return LoadingPage();
+                                    //   },
+                                    // );
 
                                     Future.delayed(Duration(seconds: 0), () {
                                       Navigator.push(

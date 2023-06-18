@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
@@ -5,18 +7,25 @@ import 'package:flutter/widgets.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
+import 'package:tubes_app/model/model.eventTampil.dart';
+import 'package:tubes_app/model/model.investor.dart';
+import 'package:tubes_app/model/model.userUmkm.dart';
 import 'package:tubes_app/views/admin/daftar.investasiku.root.dart';
 import 'package:tubes_app/views/admin/help.page.dart';
 import 'package:tubes_app/views/admin/investasiku.page.dart';
 import 'package:tubes_app/views/admin/investor.tarik_saldo.page.dart';
 import 'package:tubes_app/views/admin/investor.topup.page.dart';
-import 'package:tubes_app/views/admin/login.page.dart';
 import 'package:tubes_app/views/admin/main/investor.history.page.dart';
 import 'package:tubes_app/views/admin/main/investor.profile.dart';
 import 'package:tubes_app/views/admin/notifikasi.dart';
-import 'package:tubes_app/views/admin/root.home.dart';
+import 'package:tubes_app/views/admin/searchBarJelajah.page.dart';
 import 'package:tubes_app/views/admin/umkmku.page.dart';
 import 'package:tubes_app/views/utils/loading_page.dart';
+import 'package:http/http.dart' as http;
+
+import '../../../model/model.userLogin.dart';
+import '../../umkm/pengajuan_pendanaan.dart';
+import '../login.page.dart';
 
 class HomeInvestor extends StatefulWidget {
   const HomeInvestor({super.key});
@@ -27,18 +36,18 @@ class HomeInvestor extends StatefulWidget {
 
 class _HomeInvestorState extends State<HomeInvestor> {
   final currencyFormat = NumberFormat.currency(
-      locale: 'id_ID', // Specify the desired locale
-      symbol: 'Rp', // Currency symbol
-    );
+    locale: 'id_ID', // Specify the desired locale
+    symbol: 'Rp', // Currency symbol
+  );
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async {
-        Future.delayed(Duration(seconds: 2), () {
+        Future.delayed(Duration(seconds: 0), () {
           // Navigator.popUntil(context, ModalRoute.withName('/TransmittingPage'));
           Navigator.pop(context);
-          Navigator.pop(context);
-          Navigator.pop(context);
+          // Navigator.pop(context);
+          // Navigator.pop(context);
         });
 
         // Mengabaikan perintah "back" saat loadingPage sedang ditampilkan
@@ -52,10 +61,13 @@ class _HomeInvestorState extends State<HomeInvestor> {
           extendBodyBehindAppBar: true,
           body: SingleChildScrollView(
             child: SafeArea(
-              child: Consumer<UserLoginModel>(
-                builder: (context, loginModel, _) {
-                  return Consumer<UserInvestorModel>(
+              child: Consumer<UserUmkmModel>(builder: (context, umkmModel, _) {
+                return Consumer<UserInvestorModel>(
                     builder: (context, investorModel, _) {
+                  return Consumer<EventTampilModel>(
+                      builder: (context, eventModel, _) {
+                    return Consumer<UserLoginModel>(
+                        builder: (context, loginModel, _) {
                       return Column(
                         children: [
                           Padding(
@@ -82,7 +94,7 @@ class _HomeInvestorState extends State<HomeInvestor> {
                                       padding: EdgeInsets.only(left: 10),
                                       child: Container(
                                         child: Text(
-                                          "Hello, " + loginModel.user.name + "!",
+                                          "Halo " + loginModel.user.name,
                                           textAlign: TextAlign.left,
                                           style: TextStyle(
                                               color: Colors.black,
@@ -96,27 +108,19 @@ class _HomeInvestorState extends State<HomeInvestor> {
                                 ),
                                 InkWell(
                                   onTap: () {
-                                    showDialog(
-                                      context: context,
-                                      barrierDismissible: false,
-                                      builder: (BuildContext context) {
-                                        return LoadingPage();
-                                      },
-                                    );
-
-                                    Future.delayed(Duration(seconds: 2), () {
+                                    Future.delayed(Duration(seconds: 0), () {
                                       Navigator.push(
                                         context,
                                         PageRouteBuilder(
                                           transitionDuration: Duration(
                                               milliseconds:
                                                   500), // Durasi animasi transisi
-                                          pageBuilder:
-                                              (context, animation, secondaryAnimation) {
+                                          pageBuilder: (context, animation,
+                                              secondaryAnimation) {
                                             return SlideTransition(
                                               position: Tween<Offset>(
-                                                begin: Offset(
-                                                    1.0, 0.0), // Awal posisi halaman
+                                                begin: Offset(1.0,
+                                                    0.0), // Awal posisi halaman
                                                 end: Offset
                                                     .zero, // Akhir posisi halaman (posisi asli)
                                               ).animate(animation),
@@ -175,7 +179,8 @@ class _HomeInvestorState extends State<HomeInvestor> {
                                             MainAxisAlignment.spaceBetween,
                                         children: [
                                           Text(
-                                            currencyFormat.format(investorModel.user.saldo),
+                                            currencyFormat.format(
+                                                investorModel.user.saldo),
                                             style: TextStyle(
                                                 color: Colors.white,
                                                 fontWeight: FontWeight.w100),
@@ -191,26 +196,21 @@ class _HomeInvestorState extends State<HomeInvestor> {
                                         children: [
                                           InkWell(
                                             onTap: () {
-                                              showDialog(
-                                                context: context,
-                                                barrierDismissible: false,
-                                                builder: (BuildContext context) {
-                                                  return LoadingPage();
-                                                },
-                                              );
-
-                                              Future.delayed(Duration(seconds: 1), () {
+                                              Future.delayed(
+                                                  Duration(seconds: 0), () {
                                                 Navigator.push(
                                                   context,
                                                   PageRouteBuilder(
                                                     transitionDuration: Duration(
                                                         milliseconds:
                                                             500), // Durasi animasi transisi
-                                                    pageBuilder: (context, animation,
+                                                    pageBuilder: (context,
+                                                        animation,
                                                         secondaryAnimation) {
                                                       return FadeTransition(
                                                         opacity: animation,
-                                                        child: InvestorTopupPage(),
+                                                        child:
+                                                            InvestorTopupPage(),
                                                       );
                                                     },
                                                   ),
@@ -221,11 +221,12 @@ class _HomeInvestorState extends State<HomeInvestor> {
                                               children: [
                                                 Container(
                                                   child: Padding(
-                                                    padding: const EdgeInsets.only(
-                                                        bottom: 10.0,
-                                                        left: 14,
-                                                        right: 14,
-                                                        top: 10),
+                                                    padding:
+                                                        const EdgeInsets.only(
+                                                            bottom: 10.0,
+                                                            left: 14,
+                                                            right: 14,
+                                                            top: 10),
                                                     child: Image.asset(
                                                       "public/images/topup_icon.png",
                                                       height: 25,
@@ -234,33 +235,29 @@ class _HomeInvestorState extends State<HomeInvestor> {
                                                 ),
                                                 Text(
                                                   "Top Up",
-                                                  style: TextStyle(color: Colors.white),
+                                                  style: TextStyle(
+                                                      color: Colors.white),
                                                 ),
                                               ],
                                             ),
                                           ),
                                           InkWell(
                                             onTap: () {
-                                              showDialog(
-                                                context: context,
-                                                barrierDismissible: false,
-                                                builder: (BuildContext context) {
-                                                  return LoadingPage();
-                                                },
-                                              );
-
-                                              Future.delayed(Duration(seconds: 1), () {
+                                              Future.delayed(
+                                                  Duration(seconds: 0), () {
                                                 Navigator.push(
                                                   context,
                                                   PageRouteBuilder(
                                                     transitionDuration: Duration(
                                                         milliseconds:
                                                             500), // Durasi animasi transisi
-                                                    pageBuilder: (context, animation,
+                                                    pageBuilder: (context,
+                                                        animation,
                                                         secondaryAnimation) {
                                                       return FadeTransition(
                                                         opacity: animation,
-                                                        child: InvestorTopupPage(),
+                                                        child:
+                                                            InvestorTopupPage(),
                                                       );
                                                     },
                                                   ),
@@ -271,11 +268,12 @@ class _HomeInvestorState extends State<HomeInvestor> {
                                               children: [
                                                 Container(
                                                   child: Padding(
-                                                    padding: const EdgeInsets.only(
-                                                        bottom: 10.0,
-                                                        left: 14,
-                                                        right: 14,
-                                                        top: 10),
+                                                    padding:
+                                                        const EdgeInsets.only(
+                                                            bottom: 10.0,
+                                                            left: 14,
+                                                            right: 14,
+                                                            top: 10),
                                                     child: Image.asset(
                                                       "public/images/withdraw_icon.png",
                                                       height: 25,
@@ -284,33 +282,29 @@ class _HomeInvestorState extends State<HomeInvestor> {
                                                 ),
                                                 Text(
                                                   "Withdraw",
-                                                  style: TextStyle(color: Colors.white),
+                                                  style: TextStyle(
+                                                      color: Colors.white),
                                                 ),
                                               ],
                                             ),
                                           ),
                                           InkWell(
                                             onTap: () {
-                                              showDialog(
-                                                context: context,
-                                                barrierDismissible: false,
-                                                builder: (BuildContext context) {
-                                                  return LoadingPage();
-                                                },
-                                              );
-
-                                              Future.delayed(Duration(seconds: 1), () {
+                                              Future.delayed(
+                                                  Duration(seconds: 0), () {
                                                 Navigator.push(
                                                   context,
                                                   PageRouteBuilder(
                                                     transitionDuration: Duration(
                                                         milliseconds:
                                                             500), // Durasi animasi transisi
-                                                    pageBuilder: (context, animation,
+                                                    pageBuilder: (context,
+                                                        animation,
                                                         secondaryAnimation) {
                                                       return FadeTransition(
                                                         opacity: animation,
-                                                        child: InvestorTopupPage(),
+                                                        child:
+                                                            InvestorTopupPage(),
                                                       );
                                                     },
                                                   ),
@@ -321,11 +315,12 @@ class _HomeInvestorState extends State<HomeInvestor> {
                                               children: [
                                                 Container(
                                                   child: Padding(
-                                                    padding: const EdgeInsets.only(
-                                                        bottom: 10.0,
-                                                        left: 14,
-                                                        right: 14,
-                                                        top: 10),
+                                                    padding:
+                                                        const EdgeInsets.only(
+                                                            bottom: 10.0,
+                                                            left: 14,
+                                                            right: 14,
+                                                            top: 10),
                                                     child: Image.asset(
                                                       "public/images/scan_icon.png",
                                                       height: 25,
@@ -334,33 +329,29 @@ class _HomeInvestorState extends State<HomeInvestor> {
                                                 ),
                                                 Text(
                                                   "Scan",
-                                                  style: TextStyle(color: Colors.white),
+                                                  style: TextStyle(
+                                                      color: Colors.white),
                                                 ),
                                               ],
                                             ),
                                           ),
                                           InkWell(
                                             onTap: () {
-                                              showDialog(
-                                                context: context,
-                                                barrierDismissible: false,
-                                                builder: (BuildContext context) {
-                                                  return LoadingPage();
-                                                },
-                                              );
-
-                                              Future.delayed(Duration(seconds: 1), () {
+                                              Future.delayed(
+                                                  Duration(seconds: 0), () {
                                                 Navigator.push(
                                                   context,
                                                   PageRouteBuilder(
                                                     transitionDuration: Duration(
                                                         milliseconds:
                                                             500), // Durasi animasi transisi
-                                                    pageBuilder: (context, animation,
+                                                    pageBuilder: (context,
+                                                        animation,
                                                         secondaryAnimation) {
                                                       return FadeTransition(
                                                         opacity: animation,
-                                                        child: InvestorHistoryPage(),
+                                                        child:
+                                                            InvestorHistoryPage(),
                                                       );
                                                     },
                                                   ),
@@ -371,11 +362,12 @@ class _HomeInvestorState extends State<HomeInvestor> {
                                               children: [
                                                 Container(
                                                   child: Padding(
-                                                    padding: const EdgeInsets.only(
-                                                        bottom: 10.0,
-                                                        left: 14,
-                                                        right: 14,
-                                                        top: 10),
+                                                    padding:
+                                                        const EdgeInsets.only(
+                                                            bottom: 10.0,
+                                                            left: 14,
+                                                            right: 14,
+                                                            top: 10),
                                                     child: Image.asset(
                                                       "public/images/history_icon.png",
                                                       height: 25,
@@ -384,7 +376,8 @@ class _HomeInvestorState extends State<HomeInvestor> {
                                                 ),
                                                 Text(
                                                   "History",
-                                                  style: TextStyle(color: Colors.white),
+                                                  style: TextStyle(
+                                                      color: Colors.white),
                                                 ),
                                               ],
                                             ),
@@ -420,22 +413,16 @@ class _HomeInvestorState extends State<HomeInvestor> {
                                           side: BorderSide(color: Colors.white),
                                         ),
                                         onPressed: () {
-                                          showDialog(
-                                            context: context,
-                                            barrierDismissible: false,
-                                            builder: (BuildContext context) {
-                                              return LoadingPage();
-                                            },
-                                          );
-
-                                          Future.delayed(Duration(seconds: 2), () {
+                                          Future.delayed(Duration(seconds: 0),
+                                              () {
                                             Navigator.push(
                                               context,
                                               PageRouteBuilder(
                                                 transitionDuration: Duration(
                                                     milliseconds:
                                                         500), // Durasi animasi transisi
-                                                pageBuilder: (context, animation,
+                                                pageBuilder: (context,
+                                                    animation,
                                                     secondaryAnimation) {
                                                   return FadeTransition(
                                                     opacity: animation,
@@ -450,9 +437,13 @@ class _HomeInvestorState extends State<HomeInvestor> {
                                           padding: EdgeInsets.only(
                                               top: 20,
                                               bottom: 20,
-                                              left: MediaQuery.of(context).size.width *
+                                              left: MediaQuery.of(context)
+                                                      .size
+                                                      .width *
                                                   0.23,
-                                              right: MediaQuery.of(context).size.width *
+                                              right: MediaQuery.of(context)
+                                                      .size
+                                                      .width *
                                                   0.23),
                                           child: Text(
                                             "M U L A I  I N V E S T A S I",
@@ -472,26 +463,21 @@ class _HomeInvestorState extends State<HomeInvestor> {
                                         children: [
                                           InkWell(
                                             onTap: () {
-                                              showDialog(
-                                                context: context,
-                                                barrierDismissible: false,
-                                                builder: (BuildContext context) {
-                                                  return LoadingPage();
-                                                },
-                                              );
-
-                                              Future.delayed(Duration(seconds: 2), () {
+                                              Future.delayed(
+                                                  Duration(seconds: 0), () {
                                                 Navigator.push(
                                                   context,
                                                   PageRouteBuilder(
                                                     transitionDuration: Duration(
                                                         milliseconds:
                                                             500), // Durasi animasi transisi
-                                                    pageBuilder: (context, animation,
+                                                    pageBuilder: (context,
+                                                        animation,
                                                         secondaryAnimation) {
                                                       return FadeTransition(
                                                         opacity: animation,
-                                                        child: InvestasikuPage(),
+                                                        child:
+                                                            InvestasikuPage(),
                                                       );
                                                     },
                                                   ),
@@ -504,14 +490,16 @@ class _HomeInvestorState extends State<HomeInvestor> {
                                                   decoration: BoxDecoration(
                                                     color: HexColor("#E0DCE8"),
                                                     borderRadius:
-                                                        BorderRadius.circular(16),
+                                                        BorderRadius.circular(
+                                                            16),
                                                   ),
                                                   child: Padding(
-                                                    padding: const EdgeInsets.only(
-                                                        bottom: 10.0,
-                                                        left: 14,
-                                                        right: 14,
-                                                        top: 10),
+                                                    padding:
+                                                        const EdgeInsets.only(
+                                                            bottom: 10.0,
+                                                            left: 14,
+                                                            right: 14,
+                                                            top: 10),
                                                     child: Image.asset(
                                                       "public/images/logo_investasiku.png",
                                                       height: 35,
@@ -524,26 +512,21 @@ class _HomeInvestorState extends State<HomeInvestor> {
                                           ),
                                           InkWell(
                                             onTap: (() {
-                                              showDialog(
-                                                context: context,
-                                                barrierDismissible: false,
-                                                builder: (BuildContext context) {
-                                                  return LoadingPage();
-                                                },
-                                              );
-
-                                              Future.delayed(Duration(seconds: 2), () {
+                                              Future.delayed(
+                                                  Duration(seconds: 0), () {
                                                 Navigator.push(
                                                   context,
                                                   PageRouteBuilder(
                                                     transitionDuration: Duration(
                                                         milliseconds:
                                                             500), // Durasi animasi transisi
-                                                    pageBuilder: (context, animation,
+                                                    pageBuilder: (context,
+                                                        animation,
                                                         secondaryAnimation) {
                                                       return FadeTransition(
                                                         opacity: animation,
-                                                        child: InvestorHistoryPage(),
+                                                        child:
+                                                            InvestorHistoryPage(),
                                                       );
                                                     },
                                                   ),
@@ -556,14 +539,16 @@ class _HomeInvestorState extends State<HomeInvestor> {
                                                   decoration: BoxDecoration(
                                                     color: HexColor("#E0DCE8"),
                                                     borderRadius:
-                                                        BorderRadius.circular(16),
+                                                        BorderRadius.circular(
+                                                            16),
                                                   ),
                                                   child: Padding(
-                                                    padding: const EdgeInsets.only(
-                                                        bottom: 10.0,
-                                                        left: 14,
-                                                        right: 14,
-                                                        top: 10),
+                                                    padding:
+                                                        const EdgeInsets.only(
+                                                            bottom: 10.0,
+                                                            left: 14,
+                                                            right: 14,
+                                                            top: 10),
                                                     child: Image.asset(
                                                       "public/images/logo_dompetku.png",
                                                       height: 35,
@@ -576,26 +561,21 @@ class _HomeInvestorState extends State<HomeInvestor> {
                                           ),
                                           InkWell(
                                             onTap: (() {
-                                              showDialog(
-                                                context: context,
-                                                barrierDismissible: false,
-                                                builder: (BuildContext context) {
-                                                  return LoadingPage();
-                                                },
-                                              );
-
-                                              Future.delayed(Duration(seconds: 2), () {
+                                              Future.delayed(
+                                                  Duration(seconds: 0), () {
                                                 Navigator.push(
                                                   context,
                                                   PageRouteBuilder(
                                                     transitionDuration: Duration(
                                                         milliseconds:
                                                             500), // Durasi animasi transisi
-                                                    pageBuilder: (context, animation,
+                                                    pageBuilder: (context,
+                                                        animation,
                                                         secondaryAnimation) {
                                                       return FadeTransition(
                                                         opacity: animation,
-                                                        child: JelajahUmkmPage(),
+                                                        child:
+                                                            JelajahUmkmPage(),
                                                       );
                                                     },
                                                   ),
@@ -608,14 +588,16 @@ class _HomeInvestorState extends State<HomeInvestor> {
                                                   decoration: BoxDecoration(
                                                     color: HexColor("#E0DCE8"),
                                                     borderRadius:
-                                                        BorderRadius.circular(16),
+                                                        BorderRadius.circular(
+                                                            16),
                                                   ),
                                                   child: Padding(
-                                                    padding: const EdgeInsets.only(
-                                                        bottom: 10.0,
-                                                        left: 14,
-                                                        right: 14,
-                                                        top: 10),
+                                                    padding:
+                                                        const EdgeInsets.only(
+                                                            bottom: 10.0,
+                                                            left: 14,
+                                                            right: 14,
+                                                            top: 10),
                                                     child: Image.asset(
                                                       "public/images/logo_jelajah.png",
                                                       height: 35,
@@ -628,22 +610,16 @@ class _HomeInvestorState extends State<HomeInvestor> {
                                           ),
                                           InkWell(
                                             onTap: (() {
-                                              showDialog(
-                                                context: context,
-                                                barrierDismissible: false,
-                                                builder: (BuildContext context) {
-                                                  return LoadingPage();
-                                                },
-                                              );
-
-                                              Future.delayed(Duration(seconds: 2), () {
+                                              Future.delayed(
+                                                  Duration(seconds: 0), () {
                                                 Navigator.push(
                                                   context,
                                                   PageRouteBuilder(
                                                     transitionDuration: Duration(
                                                         milliseconds:
                                                             500), // Durasi animasi transisi
-                                                    pageBuilder: (context, animation,
+                                                    pageBuilder: (context,
+                                                        animation,
                                                         secondaryAnimation) {
                                                       return FadeTransition(
                                                         opacity: animation,
@@ -660,14 +636,16 @@ class _HomeInvestorState extends State<HomeInvestor> {
                                                   decoration: BoxDecoration(
                                                     color: HexColor("#E0DCE8"),
                                                     borderRadius:
-                                                        BorderRadius.circular(16),
+                                                        BorderRadius.circular(
+                                                            16),
                                                   ),
                                                   child: Padding(
-                                                    padding: const EdgeInsets.only(
-                                                        bottom: 10.0,
-                                                        left: 14,
-                                                        right: 14,
-                                                        top: 10),
+                                                    padding:
+                                                        const EdgeInsets.only(
+                                                            bottom: 10.0,
+                                                            left: 14,
+                                                            right: 14,
+                                                            top: 10),
                                                     child: Image.asset(
                                                       "public/images/logo_informasi.png",
                                                       height: 35,
@@ -685,7 +663,7 @@ class _HomeInvestorState extends State<HomeInvestor> {
                                       ),
                                       Container(
                                           alignment: Alignment.centerLeft,
-                                          child: Text("Jelajahi Investasi UMKM",
+                                          child: Text("Jelajahi Investasi Umkm",
                                               style: TextStyle(
                                                   fontWeight: FontWeight.bold,
                                                   fontSize: 20,
@@ -694,117 +672,86 @@ class _HomeInvestorState extends State<HomeInvestor> {
                                         scrollDirection: Axis.horizontal,
                                         child: Row(
                                           children: [
-                                            InkWell(
-                                              onTap: (() {
-                                                showDialog(
-                                                  context: context,
-                                                  barrierDismissible: false,
-                                                  builder: (BuildContext context) {
-                                                    return LoadingPage();
-                                                  },
-                                                );
-
-                                                Future.delayed(Duration(seconds: 2),
-                                                    () {
-                                                  Navigator.push(
-                                                    context,
-                                                    PageRouteBuilder(
-                                                      transitionDuration: Duration(
-                                                          milliseconds:
-                                                              500), // Durasi animasi transisi
-                                                      pageBuilder: (context, animation,
-                                                          secondaryAnimation) {
-                                                        return FadeTransition(
-                                                          opacity: animation,
-                                                          child: JelajahUmkmPage(),
-                                                        );
+                                            Container(
+                                              height:
+                                                  200, // Atur tinggi sesuai kebutuhan Anda
+                                              child: Consumer<EventTampilModel>(
+                                                builder:
+                                                    (context, eventModel, _) {
+                                                  return ListView.builder(
+                                                    shrinkWrap: true,
+                                                    scrollDirection:
+                                                        Axis.horizontal,
+                                                    itemCount: eventModel
+                                                        .events.length,
+                                                    itemBuilder:
+                                                        (BuildContext context,
+                                                                int index) =>
+                                                            InkWell(
+                                                      onTap: () {
+                                                        Future.delayed(
+                                                            Duration(
+                                                                seconds: 0),
+                                                            () {
+                                                          eventModel
+                                                              .getEvent(
+                                                                  eventModel
+                                                                      .events[
+                                                                          index]
+                                                                      .id)
+                                                              .then((_) {
+                                                            umkmModel
+                                                                .getUmkm(eventModel
+                                                                    .events[
+                                                                        index]
+                                                                    .id_umkm)
+                                                                .then((_) {
+                                                              Navigator.push(
+                                                                context,
+                                                                PageRouteBuilder(
+                                                                  transitionDuration:
+                                                                      Duration(
+                                                                          milliseconds:
+                                                                              500), // Durasi animasi transisi
+                                                                  pageBuilder: (context,
+                                                                      animation,
+                                                                      secondaryAnimation) {
+                                                                    return FadeTransition(
+                                                                      opacity:
+                                                                          animation,
+                                                                      child:
+                                                                          RootInvestasiku(),
+                                                                    );
+                                                                  },
+                                                                ),
+                                                              );
+                                                            });
+                                                          });
+                                                        });
                                                       },
+                                                      child: CardPilihanUmkm(
+                                                        gambar:
+                                                            "PikihanUMKM3.png",
+                                                        kategori: eventModel
+                                                            .events[index].name,
+                                                        judul: eventModel
+                                                            .events[index].desc,
+                                                        terkumpul: eventModel
+                                                            .events[index]
+                                                            .terkumpul,
+                                                        durasi: eventModel
+                                                            .events[index]
+                                                            .tenor,
+                                                        progressValue:
+                                                            eventModel
+                                                                .events[index]
+                                                                .terkumpul
+                                                                .toDouble(),
+                                                      ),
                                                     ),
                                                   );
-                                                });
-                                              }),
-                                              child: CardPilihanUmkm(
-                                                  gambar: "PikihanUMKM3.png",
-                                                  kategori: "UMKM MAHASISWA",
-                                                  judul: "Bergerak di bidang fashion",
-                                                  terkumpul: 1237878,
-                                                  durasi: 23,
-                                                  progressValue: 0.5),
-                                            ),
-                                            InkWell(
-                                              onTap: (() {
-                                                showDialog(
-                                                  context: context,
-                                                  barrierDismissible: false,
-                                                  builder: (BuildContext context) {
-                                                    return LoadingPage();
-                                                  },
-                                                );
-
-                                                Future.delayed(Duration(seconds: 2),
-                                                    () {
-                                                  Navigator.push(
-                                                    context,
-                                                    PageRouteBuilder(
-                                                      transitionDuration: Duration(
-                                                          milliseconds:
-                                                              500), // Durasi animasi transisi
-                                                      pageBuilder: (context, animation,
-                                                          secondaryAnimation) {
-                                                        return FadeTransition(
-                                                          opacity: animation,
-                                                          child: JelajahUmkmPage(),
-                                                        );
-                                                      },
-                                                    ),
-                                                  );
-                                                });
-                                              }),
-                                              child: CardPilihanUmkm(
-                                                  gambar: "PikihanUMKM1.png",
-                                                  kategori: "UMKM MAHASISWA",
-                                                  judul: "Bergerak di bidang Textile",
-                                                  terkumpul: 124,
-                                                  durasi: 274,
-                                                  progressValue: 0.1),
-                                            ),
-                                            InkWell(
-                                              onTap: (() {
-                                                showDialog(
-                                                  context: context,
-                                                  barrierDismissible: false,
-                                                  builder: (BuildContext context) {
-                                                    return LoadingPage();
-                                                  },
-                                                );
-
-                                                Future.delayed(Duration(seconds: 2),
-                                                    () {
-                                                  Navigator.push(
-                                                    context,
-                                                    PageRouteBuilder(
-                                                      transitionDuration: Duration(
-                                                          milliseconds:
-                                                              500), // Durasi animasi transisi
-                                                      pageBuilder: (context, animation,
-                                                          secondaryAnimation) {
-                                                        return FadeTransition(
-                                                          opacity: animation,
-                                                          child: JelajahUmkmPage(),
-                                                        );
-                                                      },
-                                                    ),
-                                                  );
-                                                });
-                                              }),
-                                              child: CardPilihanUmkm(
-                                                  gambar: "Logokemakom.png",
-                                                  kategori: "UMKM MAHASISWA",
-                                                  judul:
-                                                      "Bergerak di bidang fashion dan Textile",
-                                                  terkumpul: 7878,
-                                                  durasi: 345,
-                                                  progressValue: 0.7),
+                                                },
+                                              ),
                                             ),
                                           ],
                                         ),
@@ -816,7 +763,7 @@ class _HomeInvestorState extends State<HomeInvestor> {
 
                                       Container(
                                           alignment: Alignment.centerLeft,
-                                          child: Text("Jelajahi Investasi UMKM",
+                                          child: Text("investasiku",
                                               style: TextStyle(
                                                   fontWeight: FontWeight.bold,
                                                   fontSize: 20,
@@ -827,27 +774,21 @@ class _HomeInvestorState extends State<HomeInvestor> {
                                           children: [
                                             InkWell(
                                               onTap: (() {
-                                                showDialog(
-                                                  context: context,
-                                                  barrierDismissible: false,
-                                                  builder: (BuildContext context) {
-                                                    return LoadingPage();
-                                                  },
-                                                );
-
-                                                Future.delayed(Duration(seconds: 2),
-                                                    () {
+                                                Future.delayed(
+                                                    Duration(seconds: 0), () {
                                                   Navigator.push(
                                                     context,
                                                     PageRouteBuilder(
                                                       transitionDuration: Duration(
                                                           milliseconds:
                                                               500), // Durasi animasi transisi
-                                                      pageBuilder: (context, animation,
+                                                      pageBuilder: (context,
+                                                          animation,
                                                           secondaryAnimation) {
                                                         return FadeTransition(
                                                           opacity: animation,
-                                                          child: JelajahUmkmPage(),
+                                                          child:
+                                                              JelajahUmkmPage(),
                                                         );
                                                       },
                                                     ),
@@ -857,34 +798,29 @@ class _HomeInvestorState extends State<HomeInvestor> {
                                               child: CardPilihanUmkm(
                                                   gambar: "PikihanUMKM3.png",
                                                   kategori: "UMKM MAHASISWA",
-                                                  judul: "Bergerak di bidang fashion",
+                                                  judul:
+                                                      "Bergerak di bidang fashion",
                                                   terkumpul: 1237878,
                                                   durasi: 23,
                                                   progressValue: 0.5),
                                             ),
                                             InkWell(
                                               onTap: (() {
-                                                showDialog(
-                                                  context: context,
-                                                  barrierDismissible: false,
-                                                  builder: (BuildContext context) {
-                                                    return LoadingPage();
-                                                  },
-                                                );
-
-                                                Future.delayed(Duration(seconds: 2),
-                                                    () {
+                                                Future.delayed(
+                                                    Duration(seconds: 0), () {
                                                   Navigator.push(
                                                     context,
                                                     PageRouteBuilder(
                                                       transitionDuration: Duration(
                                                           milliseconds:
                                                               500), // Durasi animasi transisi
-                                                      pageBuilder: (context, animation,
+                                                      pageBuilder: (context,
+                                                          animation,
                                                           secondaryAnimation) {
                                                         return FadeTransition(
                                                           opacity: animation,
-                                                          child: JelajahUmkmPage(),
+                                                          child:
+                                                              JelajahUmkmPage(),
                                                         );
                                                       },
                                                     ),
@@ -894,34 +830,29 @@ class _HomeInvestorState extends State<HomeInvestor> {
                                               child: CardPilihanUmkm(
                                                   gambar: "PikihanUMKM1.png",
                                                   kategori: "UMKM MAHASISWA",
-                                                  judul: "Bergerak di bidang Textile",
+                                                  judul:
+                                                      "Bergerak di bidang Textile",
                                                   terkumpul: 124,
                                                   durasi: 274,
                                                   progressValue: 0.1),
                                             ),
                                             InkWell(
                                               onTap: (() {
-                                                showDialog(
-                                                  context: context,
-                                                  barrierDismissible: false,
-                                                  builder: (BuildContext context) {
-                                                    return LoadingPage();
-                                                  },
-                                                );
-
-                                                Future.delayed(Duration(seconds: 2),
-                                                    () {
+                                                Future.delayed(
+                                                    Duration(seconds: 0), () {
                                                   Navigator.push(
                                                     context,
                                                     PageRouteBuilder(
                                                       transitionDuration: Duration(
                                                           milliseconds:
                                                               500), // Durasi animasi transisi
-                                                      pageBuilder: (context, animation,
+                                                      pageBuilder: (context,
+                                                          animation,
                                                           secondaryAnimation) {
                                                         return FadeTransition(
                                                           opacity: animation,
-                                                          child: JelajahUmkmPage(),
+                                                          child:
+                                                              JelajahUmkmPage(),
                                                         );
                                                       },
                                                     ),
@@ -954,10 +885,10 @@ class _HomeInvestorState extends State<HomeInvestor> {
                           ),
                         ],
                       );
-                    }
-                  );
-                }
-              ),
+                    });
+                  });
+                });
+              }),
             ),
           ),
         ),
@@ -1080,7 +1011,7 @@ class CardPilihanUmkm extends StatelessWidget {
                 Padding(
                   padding: EdgeInsets.only(left: 10),
                   child: Text(
-                    judul,
+                    judul.length > 40 ? judul.substring(0, 40) + "..." : judul,
                     textAlign: TextAlign.left,
                     style: TextStyle(
                       fontSize: 11,
@@ -1168,6 +1099,14 @@ class _SearchBarState extends State<SearchBar> {
     return Container(
       padding: EdgeInsets.all(8.0),
       child: TextField(
+        onTap: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => SearchBarPage(),
+            ),
+          );
+        },
         controller: _searchController,
         decoration: InputDecoration(
           labelText: 'Jelajahi Peluang Investasi UMKM di Sekitar Anda',

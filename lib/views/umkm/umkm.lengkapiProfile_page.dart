@@ -45,19 +45,19 @@ class _UMKMLengkapiProfilePage extends State<UMKMLengkapiProfilePage> {
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async {
-        showDialog(
-          context: context,
-          barrierDismissible: false,
-          builder: (BuildContext context) {
-            return LoadingPage();
-          },
-        );
+        // showDialog(
+        //   context: context,
+        //   barrierDismissible: false,
+        //   builder: (BuildContext context) {
+        //     return LoadingPage();
+        //   },
+        // );
 
-        Future.delayed(Duration(seconds: 2), () {
+        Future.delayed(Duration(seconds: 0), () {
           // Navigator.popUntil(context, ModalRoute.withName('/TransmittingPage'));
           Navigator.pop(context);
-          Navigator.pop(context);
-          Navigator.pop(context);
+          // Navigator.pop(context);
+          // Navigator.pop(context);
         });
 
         // Mengabaikan perintah "back" saat loadingPage sedang ditampilkan
@@ -275,35 +275,6 @@ class _UMKMLengkapiProfilePage extends State<UMKMLengkapiProfilePage> {
                             alignment: Alignment.centerLeft,
                             child: Text("Alamat"),
                           ),
-                          Padding(padding: EdgeInsets.only(bottom: 15)),
-                          DropdownButtonFormField<String>(
-                            value: selectedProvince,
-                            items: provinces.map((String province) {
-                              return DropdownMenuItem<String>(
-                                value: province,
-                                child: Text(province),
-                              );
-                            }).toList(),
-                            onChanged: (String? value) {
-                              setState(() {
-                                selectedProvince = value!;
-                              });
-                            },
-                          ),
-                          DropdownButtonFormField<String>(
-                            value: selectedCity,
-                            items: city.map((String province) {
-                              return DropdownMenuItem<String>(
-                                value: province,
-                                child: Text(province),
-                              );
-                            }).toList(),
-                            onChanged: (String? value) {
-                              setState(() {
-                                selectedCity = value!;
-                              });
-                            },
-                          ),
                           TextForm(
                             controller: alamatController,
                             text: 'alamat lengkap',
@@ -333,15 +304,15 @@ class _UMKMLengkapiProfilePage extends State<UMKMLengkapiProfilePage> {
                             padding: EdgeInsets.only(left: 50, right: 50),
                             child: InkWell(
                               onTap: () {
-                                showDialog(
-                                  context: context,
-                                  barrierDismissible: false,
-                                  builder: (BuildContext context) {
-                                    return LoadingPage();
-                                  },
-                                );
+                                // showDialog(
+                                //   context: context,
+                                //   barrierDismissible: false,
+                                //   builder: (BuildContext context) {
+                                //     return LoadingPage();
+                                //   },
+                                // );
 
-                                Future.delayed(Duration(seconds: 2), () {
+                                Future.delayed(Duration(seconds: 0), () {
                                   Navigator.push(
                                     context,
                                     PageRouteBuilder(

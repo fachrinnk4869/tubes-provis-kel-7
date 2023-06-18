@@ -17,19 +17,19 @@ class _NotifyPageState extends State<NotifyPage> {
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async {
-        showDialog(
-          context: context,
-          barrierDismissible: false,
-          builder: (BuildContext context) {
-            return LoadingPage();
-          },
-        );
+        // showDialog(
+        //   context: context,
+        //   barrierDismissible: false,
+        //   builder: (BuildContext context) {
+        //     return LoadingPage();
+        //   },
+        // );
 
-        Future.delayed(Duration(seconds: 2), () {
+        Future.delayed(Duration(seconds: 0), () {
           // Navigator.popUntil(context, ModalRoute.withName('/TransmittingPage'));
           Navigator.pop(context);
-          Navigator.pop(context);
-          Navigator.pop(context);
+          // Navigator.pop(context);
+          // Navigator.pop(context);
         });
 
         // Mengabaikan perintah "back" saat loadingPage sedang ditampilkan
@@ -157,15 +157,15 @@ class _NotifyPageState extends State<NotifyPage> {
                             Colors.white, // Text Color (Foreground color)
                       ),
                       onPressed: () {
-                        showDialog(
-                          context: context,
-                          barrierDismissible: false,
-                          builder: (BuildContext context) {
-                            return LoadingPage();
-                          },
-                        );
+                        // showDialog(
+                        //   context: context,
+                        //   barrierDismissible: false,
+                        //   builder: (BuildContext context) {
+                        //     return LoadingPage();
+                        //   },
+                        // );
 
-                        Future.delayed(Duration(seconds: 2), () {
+                        Future.delayed(Duration(seconds: 0), () {
                           Navigator.push(
                             context,
                             PageRouteBuilder(

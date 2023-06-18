@@ -8,6 +8,9 @@ import 'package:tubes_app/views/admin/login.page.dart';
 import 'package:tubes_app/views/umkm/umkm.root.home.dart';
 import 'package:tubes_app/views/utils/loading_page.dart';
 
+import '../../model/model.userLogin.dart';
+import '../../model/model.userUmkm.dart';
+
 class UMKMProfilePage extends StatefulWidget {
   const UMKMProfilePage({super.key});
 
@@ -20,19 +23,19 @@ class _UMKMProfilePageState extends State<UMKMProfilePage> {
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async {
-        showDialog(
-          context: context,
-          barrierDismissible: false,
-          builder: (BuildContext context) {
-            return LoadingPage();
-          },
-        );
+        // showDialog(
+        //   context: context,
+        //   barrierDismissible: false,
+        //   builder: (BuildContext context) {
+        //     return LoadingPage();
+        //   },
+        // );
 
-        Future.delayed(Duration(seconds: 2), () {
+        Future.delayed(Duration(seconds: 0), () {
           // Navigator.popUntil(context, ModalRoute.withName('/TransmittingPage'));
           Navigator.pop(context);
-          Navigator.pop(context);
-          Navigator.pop(context);
+          // Navigator.pop(context);
+          // Navigator.pop(context);
         });
 
         // Mengabaikan perintah "back" saat loadingPage sedang ditampilkan
@@ -81,122 +84,124 @@ class _UMKMProfilePageState extends State<UMKMProfilePage> {
                         height: 5,
                       ),
                       // for (var i = 0; i < 10; i++)
-                       Consumer<UserUmkmModel>(
-                         builder: (context, umkmModel, _) {
-                           return Consumer<UserLoginModel>(
-                            builder: (context, loginModel, _)  {
-                              return Padding(
-                                padding: const EdgeInsets.only(top: 5.0),
-                                child: Container(
-                                  width: MediaQuery.of(context).size.width * 0.8,
-                                  height: 50,
-                                  decoration: BoxDecoration(
-                                    color: HexColor("#E0DCE8"),
-                                    borderRadius: BorderRadius.circular(6),
-                                    boxShadow: [
-                                      BoxShadow(
-                                        color: Colors.grey,
-                                        blurRadius: 4,
-                                        offset: Offset(4, 8), // Shadow position
-                                      ),
-                                    ],
+                      Consumer<UserUmkmModel>(builder: (context, umkmModel, _) {
+                        return Consumer<UserLoginModel>(
+                            builder: (context, loginModel, _) {
+                          return Padding(
+                            padding: const EdgeInsets.only(top: 5.0),
+                            child: Container(
+                              width: MediaQuery.of(context).size.width * 0.8,
+                              height: 50,
+                              decoration: BoxDecoration(
+                                color: HexColor("#E0DCE8"),
+                                borderRadius: BorderRadius.circular(6),
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.grey,
+                                    blurRadius: 4,
+                                    offset: Offset(4, 8), // Shadow position
                                   ),
-                                  child: Padding(
-                                    padding: const EdgeInsets.only(left: 25, right: 10),
-                                    child: Row(
-                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                ],
+                              ),
+                              child: Padding(
+                                padding:
+                                    const EdgeInsets.only(left: 25, right: 10),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Row(
                                       children: [
-                                        Row(
+                                        Image.asset(
+                                          "public/images/MaleIcon.png",
+                                          width: 30, // Lebar gambar 200 piksel
+                                          height: 30,
+                                        ),
+                                        SizedBox(
+                                          width: 20,
+                                        ),
+                                        Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
                                           children: [
-                                            Image.asset(
-                                              "public/images/MaleIcon.png",
-                                              width: 30, // Lebar gambar 200 piksel
-                                              height: 30,
+                                            Text(
+                                              loginModel.user.name,
+                                              style: TextStyle(
+                                                fontSize: 16,
+                                                fontWeight: FontWeight.w500,
+                                              ),
                                             ),
-                                            SizedBox(
-                                              width: 20,
-                                            ),
-                                            Column(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.center,
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
+                                            Row(
                                               children: [
-                                                Text(
-                                                  loginModel.user.name,
-                                                  style: TextStyle(
-                                                    fontSize: 16,
-                                                    fontWeight: FontWeight.w500,
-                                                  ),
+                                                Image.asset(
+                                                  "public/images/TelephoneIcon.png",
+                                                  width:
+                                                      15, // Lebar gambar 200 piksel
+                                                  height: 15,
                                                 ),
-                                                Row(
-                                                  children: [
-                                                    Image.asset(
-                                                      "public/images/TelephoneIcon.png",
-                                                      width:
-                                                          15, // Lebar gambar 200 piksel
-                                                      height: 15,
-                                                    ),
-                                                    Padding(
-                                                      padding: const EdgeInsets.only(
+                                                Padding(
+                                                  padding:
+                                                      const EdgeInsets.only(
                                                           left: 10),
-                                                      child: Text(
-                                                        loginModel.user.contact,
-                                                        style: TextStyle(
-                                                          fontSize: 12,
-                                                          fontWeight: FontWeight.w500,
-                                                        ),
-                                                      ),
+                                                  child: Text(
+                                                    loginModel.user.contact,
+                                                    style: TextStyle(
+                                                      fontSize: 12,
+                                                      fontWeight:
+                                                          FontWeight.w500,
                                                     ),
-                                                  ],
+                                                  ),
                                                 ),
                                               ],
                                             ),
                                           ],
                                         ),
-                                        InkWell(
-                                          onTap: (() {
-                                            showDialog(
-                                            context: context,
-                                            barrierDismissible: false,
-                                            builder: (BuildContext context) {
-                                              return LoadingPage();
-                                            },
-                                          );
-
-                                          Future.delayed(Duration(seconds: 1), () {
-                                            Navigator.push(
-                                              context,
-                                              PageRouteBuilder(
-                                                transitionDuration: Duration(
-                                                    milliseconds:
-                                                        500), // Durasi animasi transisi
-                                                pageBuilder: (context, animation,
-                                                    secondaryAnimation) {
-                                                  return FadeTransition(
-                                                    opacity: animation,
-                                                    child: LengkapiProfilePage(),
-                                                  );
-                                                },
-                                              ),
-                                            );
-                                          });
-                                          }),
-                                          child: Image.asset(
-                                            "public/images/EditProfile.png",
-                                            width: 30, // Lebar gambar 200 piksel
-                                            height: 30,
-                                          ),
-                                        ),
                                       ],
                                     ),
-                                  ),
+                                    InkWell(
+                                      onTap: (() {
+                                        //   showDialog(
+                                        //   context: context,
+                                        //   barrierDismissible: false,
+                                        //   builder: (BuildContext context) {
+                                        //     return LoadingPage();
+                                        //   },
+                                        // );
+
+                                        Future.delayed(Duration(seconds: 0),
+                                            () {
+                                          Navigator.push(
+                                            context,
+                                            PageRouteBuilder(
+                                              transitionDuration: Duration(
+                                                  milliseconds:
+                                                      500), // Durasi animasi transisi
+                                              pageBuilder: (context, animation,
+                                                  secondaryAnimation) {
+                                                return FadeTransition(
+                                                  opacity: animation,
+                                                  child: LengkapiProfilePage(),
+                                                );
+                                              },
+                                            ),
+                                          );
+                                        });
+                                      }),
+                                      child: Image.asset(
+                                        "public/images/EditProfile.png",
+                                        width: 30, // Lebar gambar 200 piksel
+                                        height: 30,
+                                      ),
+                                    ),
+                                  ],
                                 ),
-                              );
-                            }
-                      );
-                         }
-                       ),
+                              ),
+                            ),
+                          );
+                        });
+                      }),
                       SizedBox(
                         height: 30,
                       ),

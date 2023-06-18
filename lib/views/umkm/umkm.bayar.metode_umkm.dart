@@ -9,6 +9,7 @@ import 'package:tubes_app/views/admin/root.home.dart';
 import 'package:tubes_app/views/umkm/notify.dart';
 import 'package:tubes_app/views/umkm/umkm.root.home.dart';
 
+import '../../model/model.userUmkm.dart';
 import '../utils/loading_page.dart';
 
 class UMKMMetodePayment extends StatefulWidget {
@@ -27,19 +28,19 @@ class _UMKMMetodePaymentState extends State<UMKMMetodePayment> {
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async {
-        showDialog(
-          context: context,
-          barrierDismissible: false,
-          builder: (BuildContext context) {
-            return LoadingPage();
-          },
-        );
+        // showDialog(
+        //   context: context,
+        //   barrierDismissible: false,
+        //   builder: (BuildContext context) {
+        //     return LoadingPage();
+        //   },
+        // );
 
-        Future.delayed(Duration(seconds: 2), () {
+        Future.delayed(Duration(seconds: 0), () {
           // Navigator.popUntil(context, ModalRoute.withName('/TransmittingPage'));
           Navigator.pop(context);
-          Navigator.pop(context);
-          Navigator.pop(context);
+          // Navigator.pop(context);
+          // Navigator.pop(context);
         });
 
         // Mengabaikan perintah "back" saat loadingPage sedang ditampilkan
@@ -403,20 +404,19 @@ class _UMKMMetodePaymentState extends State<UMKMMetodePayment> {
                                 ),
                                 onPressed: () {
                                   final umkm = UserUmkm(
-                                              id: umkmModel.user.id,
-                                              saldo: umkmModel.saldo,
-                                            );
+                                    id: umkmModel.user.id,
+                                    saldo: umkmModel.saldo,
+                                  );
                                   umkmModel
-                                      .updateSaldoUmkm(
-                                          umkm, umkmModel.user.id)
+                                      .updateSaldoUmkm(umkm, umkmModel.user.id)
                                       .then((_) {
-                                    showDialog(
-                                      context: context,
-                                      barrierDismissible: false,
-                                      builder: (BuildContext context) {
-                                        return LoadingPage();
-                                      },
-                                    );
+                                    // showDialog(
+                                    //   context: context,
+                                    //   barrierDismissible: false,
+                                    //   builder: (BuildContext context) {
+                                    //     return LoadingPage();
+                                    //   },
+                                    // );
 
                                     Future.delayed(Duration(seconds: 0), () {
                                       Navigator.push(
@@ -458,15 +458,15 @@ class _UMKMMetodePaymentState extends State<UMKMMetodePayment> {
                                       .white, // Text Color (Foreground color)
                                 ),
                                 onPressed: () {
-                                  showDialog(
-                                    context: context,
-                                    barrierDismissible: false,
-                                    builder: (BuildContext context) {
-                                      return LoadingPage();
-                                    },
-                                  );
+                                  // showDialog(
+                                  //   context: context,
+                                  //   barrierDismissible: false,
+                                  //   builder: (BuildContext context) {
+                                  //     return LoadingPage();
+                                  //   },
+                                  // );
 
-                                  Future.delayed(Duration(seconds: 2), () {
+                                  Future.delayed(Duration(seconds: 0), () {
                                     Navigator.push(
                                       context,
                                       PageRouteBuilder(

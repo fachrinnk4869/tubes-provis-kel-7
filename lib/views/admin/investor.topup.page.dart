@@ -6,10 +6,12 @@ import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:provider/provider.dart';
+import 'package:tubes_app/model/model.investor.dart';
 import 'package:tubes_app/views/admin/bayar.metode_umkm.dart';
 import 'package:tubes_app/views/admin/login.page.dart';
 import 'package:tubes_app/views/admin/root.home.dart';
 
+import '../../model/model.userLogin.dart';
 import '../utils/loading_page.dart';
 import 'notify/investor.notify.dart';
 
@@ -26,15 +28,15 @@ class _InvestorTopupPageState extends State<InvestorTopupPage> {
   final TextEditingController nominalController = TextEditingController();
 
   void toggleCheckbox() {
-    showDialog(
-      context: context,
-      barrierDismissible: false,
-      builder: (BuildContext context) {
-        return MetodePayment();
-      },
-    );
+    // showDialog(
+    //   context: context,
+    //   barrierDismissible: false,
+    //   builder: (BuildContext context) {
+    //     return MetodePayment();
+    //   },
+    // );
 
-    Future.delayed(Duration(seconds: 2), () {
+    Future.delayed(Duration(seconds: 0), () {
       Navigator.push(
         context,
         PageRouteBuilder(
@@ -77,19 +79,19 @@ class _InvestorTopupPageState extends State<InvestorTopupPage> {
     // nominalController.text = "halo";
     return WillPopScope(
       onWillPop: () async {
-        showDialog(
-          context: context,
-          barrierDismissible: false,
-          builder: (BuildContext context) {
-            return LoadingPage();
-          },
-        );
+        // showDialog(
+        //   context: context,
+        //   barrierDismissible: false,
+        //   builder: (BuildContext context) {
+        //     return LoadingPage();
+        //   },
+        // );
 
-        Future.delayed(Duration(seconds: 2), () {
+        Future.delayed(Duration(seconds: 0), () {
           // Navigator.popUntil(context, ModalRoute.withName('/TransmittingPage'));
           Navigator.pop(context);
-          Navigator.pop(context);
-          Navigator.pop(context);
+          // Navigator.pop(context);
+          // Navigator.pop(context);
         });
 
         // Mengabaikan perintah "back" saat loadingPage sedang ditampilkan
@@ -135,7 +137,6 @@ class _InvestorTopupPageState extends State<InvestorTopupPage> {
                           builder: (context, investorModel, _) {
                         return Container(
                           width: MediaQuery.of(context).size.width * 0.75,
-                          height: MediaQuery.of(context).size.height * 0.3,
                           decoration: BoxDecoration(
                             color: Colors.white,
                             borderRadius: BorderRadius.circular(10),
@@ -214,12 +215,18 @@ class _InvestorTopupPageState extends State<InvestorTopupPage> {
                                     Padding(
                                       padding: const EdgeInsets.only(top: 15.0),
                                       child: Container(
-                                        width: 190,
+                                        width:
+                                            MediaQuery.of(context).size.width *
+                                                0.57,
                                         child: Text(
                                             "Saya setuju dengan syarat dan ketentuan yang berlaku dan telah ditentukan"),
                                       ),
                                     ),
                                   ],
+                                ),
+
+                                SizedBox(
+                                  height: 15,
                                 ),
 
                                 Center(
@@ -244,7 +251,7 @@ class _InvestorTopupPageState extends State<InvestorTopupPage> {
                                     onPressed: isButtonEnabled
                                         ? () {
                                             investorModel.setSaldo(int.parse(
-                                                  nominalController.text));
+                                                nominalController.text));
                                             toggleCheckbox();
                                           }
                                         : null,

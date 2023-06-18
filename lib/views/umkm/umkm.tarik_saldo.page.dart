@@ -9,6 +9,9 @@ import 'package:tubes_app/views/umkm/umkm.notify.tarik_saldo.dart';
 import 'package:tubes_app/views/umkm/umkm.root.home.dart';
 import 'package:tubes_app/views/utils/loading_page.dart';
 
+import '../../model/model.userLogin.dart';
+import '../../model/model.userUmkm.dart';
+
 class UMKMTarikSaldo extends StatefulWidget {
   const UMKMTarikSaldo({super.key});
 
@@ -22,19 +25,19 @@ class _UMKMTarikSaldoState extends State<UMKMTarikSaldo> {
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async {
-        showDialog(
-          context: context,
-          barrierDismissible: false,
-          builder: (BuildContext context) {
-            return LoadingPage();
-          },
-        );
+        // showDialog(
+        //   context: context,
+        //   barrierDismissible: false,
+        //   builder: (BuildContext context) {
+        //     return LoadingPage();
+        //   },
+        // );
 
-        Future.delayed(Duration(seconds: 2), () {
+        Future.delayed(Duration(seconds: 0), () {
           // Navigator.popUntil(context, ModalRoute.withName('/TransmittingPage'));
           Navigator.pop(context);
-          Navigator.pop(context);
-          Navigator.pop(context);
+          // Navigator.pop(context);
+          // Navigator.pop(context);
         });
 
         // Mengabaikan perintah "back" saat loadingPage sedang ditampilkan
@@ -188,7 +191,7 @@ class _UMKMTarikSaldoState extends State<UMKMTarikSaldo> {
                                     onPressed: () {
                                       if (umkmModel.user.saldo -
                                               int.parse(
-                                              nominalController.text) <
+                                                  nominalController.text) <
                                           0) {
                                         showDialog(
                                           context: context,

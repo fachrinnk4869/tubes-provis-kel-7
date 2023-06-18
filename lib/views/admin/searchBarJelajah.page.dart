@@ -20,11 +20,11 @@ class _SearchBarPageState extends State<SearchBarPage> {
     return WillPopScope(
       onWillPop: () async {
 
-        Future.delayed(Duration(seconds: 2), () {
+        Future.delayed(Duration(seconds: 0), () {
           // Navigator.popUntil(context, ModalRoute.withName('/TransmittingPage'));
           Navigator.pop(context);
-          Navigator.pop(context);
-          Navigator.pop(context);
+          // Navigator.pop(context);
+          // Navigator.pop(context);
         });
 
         // Mengabaikan perintah "back" saat loadingPage sedang ditampilkan
@@ -72,10 +72,10 @@ class _SearchBarPageState extends State<SearchBarPage> {
                     ),
                   ),
                   onPressed: () {
-                    Future.delayed(Duration(seconds: 2), () {
+                    Future.delayed(Duration(seconds: 0), () {
                       Navigator.pop(context);
-                      Navigator.pop(context);
-                      Navigator.pop(context);
+                      // Navigator.pop(context);
+                      // Navigator.pop(context);
                     });
                   },
                 ),

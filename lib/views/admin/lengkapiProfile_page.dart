@@ -12,6 +12,8 @@ import 'package:tubes_app/views/auth/login_page.dart';
 import 'package:tubes_app/views/widgets/button.form.dart';
 import 'package:tubes_app/views/widgets/text.form.dart';
 
+import '../../model/model.userLogin.dart';
+import '../../model/model.userUmkm.dart';
 import '../umkm/umkm.register.page.dart';
 import '../umkm/umkm.root.home.dart';
 
@@ -49,19 +51,19 @@ class _LengkapiProfilePage extends State<LengkapiProfilePage> {
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async {
-        showDialog(
-          context: context,
-          barrierDismissible: false,
-          builder: (BuildContext context) {
-            return LoadingPage();
-          },
-        );
+        // showDialog(
+        //   context: context,
+        //   barrierDismissible: false,
+        //   builder: (BuildContext context) {
+        //     return LoadingPage();
+        //   },
+        // );
 
-        Future.delayed(Duration(seconds: 2), () {
+        Future.delayed(Duration(seconds: 0), () {
           // Navigator.popUntil(context, ModalRoute.withName('/TransmittingPage'));
           Navigator.pop(context);
-          Navigator.pop(context);
-          Navigator.pop(context);
+          // Navigator.pop(context);
+          // Navigator.pop(context);
         });
 
         // Mengabaikan perintah "back" saat loadingPage sedang ditampilkan
@@ -358,22 +360,22 @@ class _LengkapiProfilePage extends State<LengkapiProfilePage> {
                                       .updateUmkm(umkm, umkmModel.user.id)
                                       .then((_) {
                                     Navigator.push(
-                                            context,
-                                            PageRouteBuilder(
-                                              transitionDuration:
-                                                  Duration(milliseconds: 500),
-                                              pageBuilder: (context, animation,
-                                                  secondaryAnimation) {
-                                                return SlideTransition(
-                                                  position: Tween<Offset>(
-                                                    begin: Offset(1.0, 0.0),
-                                                    end: Offset.zero,
-                                                  ).animate(animation),
-                                                  child: HomeRootUMKM(),
-                                                );
-                                              },
-                                            ),
+                                      context,
+                                      PageRouteBuilder(
+                                        transitionDuration:
+                                            Duration(milliseconds: 500),
+                                        pageBuilder: (context, animation,
+                                            secondaryAnimation) {
+                                          return SlideTransition(
+                                            position: Tween<Offset>(
+                                              begin: Offset(1.0, 0.0),
+                                              end: Offset.zero,
+                                            ).animate(animation),
+                                            child: HomeRootUMKM(),
                                           );
+                                        },
+                                      ),
+                                    );
                                     // Navigator.push(
                                     //     context,
                                     //     PageRouteBuilder(

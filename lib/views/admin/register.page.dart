@@ -7,6 +7,7 @@ import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:hexcolor/hexcolor.dart';
 import 'package:provider/provider.dart';
+import 'package:tubes_app/model/model.investor.dart';
 import 'package:tubes_app/views/admin/login.page.dart';
 import 'package:tubes_app/views/admin/root.home.dart';
 import 'package:tubes_app/views/auth/login_page.dart';
@@ -14,96 +15,8 @@ import 'package:tubes_app/views/utils/loading_page.dart';
 import 'package:tubes_app/views/widgets/button.form.dart';
 import 'package:tubes_app/views/widgets/text.form.dart';
 
+import '../../model/model.userRegistration.dart';
 import '../umkm/umkm.root.home.dart';
-
-class UserRegistration {
-  final int? id;
-  final String name;
-  final String contact;
-  final String email;
-  final String? password;
-
-  UserRegistration(
-      {this.id,
-      required this.email,
-      this.password,
-      required this.name,
-      required this.contact});
-
-  Map<String, dynamic> toJson() {
-    return {
-      'email': email,
-      'name': name,
-      'contact': contact,
-      'password': password,
-    };
-  }
-
-  factory UserRegistration.fromJson(Map<String, dynamic> json) {
-    return UserRegistration(
-        id: json["id"],
-        email: json["email"],
-        name: json["name"],
-        contact: json["contact"]);
-  }
-}
-
-class UserRegistrationModel extends ChangeNotifier {
-  bool isLoading = false;
-  String message = '';
-  String _validationError = '';
-  String get validationError => _validationError;
-  dynamic _user;
-  dynamic get user => _user;
-  bool validateForm(UserRegistration regis) {
-    if (regis.email.isEmpty || regis.password!.isEmpty) {
-      _validationError = 'kosong';
-    } else {
-      _validationError = '';
-    }
-    // notifyListeners();
-    return _validationError.isEmpty;
-  }
-
-  Future<void> registerUser(UserRegistration registration) async {
-    // isLoading = true;
-    // notifyListeners();
-    if (validateForm(registration)) {
-      final url = 'http://127.0.0.1:8000/users/1';
-      final headers = {'Content-Type': 'application/json'};
-      final body = jsonEncode(registration.toJson());
-
-      try {
-        final response =
-            await http.post(Uri.parse(url), headers: headers, body: body);
-
-        if (response.statusCode == 200) {
-          // Registration successful, handle the response
-          message = 'User registered successfully';
-          print(response.body);
-          _user = UserRegistration.fromJson(jsonDecode(response.body));
-          // Navigate to the next screen or perform other actions
-        } else {
-          // Registration failed, handle the error
-          message = 'Failed to register user';
-          print(response.body);
-          if (response.statusCode == 400) {
-            _validationError = 'dipake';
-          } else {
-            _validationError = '';
-          }
-          // Display an error message or perform other actions
-        }
-      } catch (error) {
-        message = 'An error occurred during registration';
-        print(error.toString());
-      }
-    }
-    // callback();
-    // isLoading = false;
-    notifyListeners();
-  }
-}
 
 class InvestorRegistPage extends StatefulWidget {
   const InvestorRegistPage({super.key});
@@ -123,15 +36,7 @@ class _InvestorRegistPageState extends State<InvestorRegistPage> {
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async {
-        showDialog(
-          context: context,
-          barrierDismissible: false,
-          builder: (BuildContext context) {
-            return LoadingPage();
-          },
-        );
-
-        Future.delayed(Duration(seconds: 2), () {
+        Future.delayed(Duration(seconds: 0), () {
           // Navigator.popUntil(context, ModalRoute.withName('/TransmittingPage'));
           Navigator.pop(context);
           Navigator.pop(context);
@@ -416,13 +321,13 @@ class _InvestorRegistPageState extends State<InvestorRegistPage> {
                                   ),
                                   InkWell(
                                     onTap: () {
-                                      showDialog(
-                                        context: context,
-                                        barrierDismissible: false,
-                                        builder: (BuildContext context) {
-                                          return LoadingPage();
-                                        },
-                                      );
+                                      // showDialog(
+                                      //   context: context,
+                                      //   barrierDismissible: false,
+                                      //   builder: (BuildContext context) {
+                                      //     return LoadingPage();
+                                      //   },
+                                      // );
 
                                       Future.delayed(Duration(seconds: 0), () {
                                         Navigator.push(

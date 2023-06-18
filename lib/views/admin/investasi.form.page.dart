@@ -28,18 +28,18 @@ class _InvestasiFormPageState extends State<InvestasiFormPage> {
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async {
-        showDialog(
-          context: context,
-          barrierDismissible: false,
-          builder: (BuildContext context) {
-            return LoadingPage();
-          },
-        );
+        // showDialog(
+        //   context: context,
+        //   barrierDismissible: false,
+        //   builder: (BuildContext context) {
+        //     return LoadingPage();
+        //   },
+        // );
 
         Future.delayed(Duration(seconds: 2), () {
           // Navigator.popUntil(context, ModalRoute.withName('/TransmittingPage'));
-          Navigator.pop(context);
-          Navigator.pop(context);
+          // Navigator.pop(context);
+          // Navigator.pop(context);
           Navigator.pop(context);
         });
 
@@ -203,13 +203,13 @@ class _InvestasiFormPageState extends State<InvestasiFormPage> {
                                 onPrimary: Colors.white,
                               ),
                               onPressed: () {
-                                showDialog(
-                                  context: context,
-                                  barrierDismissible: false,
-                                  builder: (BuildContext context) {
-                                    return LoadingPage();
-                                  },
-                                );
+                                // showDialog(
+                                //   context: context,
+                                //   barrierDismissible: false,
+                                //   builder: (BuildContext context) {
+                                //     return LoadingPage();
+                                //   },
+                                // );
 
                                 Future.delayed(Duration(seconds: 2), () {
                                   Navigator.push(
