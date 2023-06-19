@@ -22,6 +22,18 @@ class EventTampil {
     required this.id_umkm,
     required this.keuntungan,
   });
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'name': name,
+      'desc': desc,
+      'target': target,
+      'terkumpul': terkumpul,
+      'tenor': tenor,
+      'id_umkm': id_umkm,
+      'keuntungan': keuntungan,
+    };
+  }
   factory EventTampil.fromJson(Map<String, dynamic> json) {
     return EventTampil(
       id: json["id"],
@@ -42,7 +54,7 @@ class EventTampilModel with ChangeNotifier {
   List<EventTampil> get events => _events;
   dynamic _event;
 
-  EventTampil get event => _event;
+  dynamic get event => _event;
   Future<List<EventTampil>> fetchData() async {
     var response = await http.get(Uri.parse('http://127.0.0.1:8000/events'));
     if (response.statusCode == 200) {
@@ -77,6 +89,41 @@ class EventTampilModel with ChangeNotifier {
       }
     } catch (error) {
       // message = 'An error occurred during event';
+      print(error.toString());
+    }
+    // callback();
+    // isLoading = false;
+    notifyListeners();
+  }
+  Future<void> updateTerkumpul(
+      EventTampil event, dynamic event_id) async {
+    // isLoading = true;
+    // notifyListeners();
+
+    final url = 'http://127.0.0.1:8000/events/$event_id/terkumpul';
+    final headers = {'Content-Type': 'application/json'};
+    final body = jsonEncode(event.toJson());
+
+    try {
+      final response =
+          await http.put(Uri.parse(url), headers: headers, body: body);
+      // notifyListeners();
+
+      if (response.statusCode == 200) {
+        // Investor successful, handle the response
+        // message = 'User Investor successfully';
+        print(response.body);
+        _event = EventTampil.fromJson(jsonDecode(response.body));
+        fetchData();
+        // Navigate to the next screen or perform other actions
+      } else {
+        // Investor failed, handle the error
+        // message = 'Failed to register user';
+        print(response.body);
+        // Display an error message or perform other actions
+      }
+    } catch (error) {
+      // message = 'An error occurred during investor';
       print(error.toString());
     }
     // callback();

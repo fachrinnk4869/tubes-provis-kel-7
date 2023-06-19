@@ -3,20 +3,31 @@ import 'package:http/http.dart' as http;
 import 'package:flutter/cupertino.dart';
 
 class Investment {
-  final int id;
-  final String jumlah_investasi;
-  final String tanggal_investasi;
+  final int? id;
+  final int? id_investor;
+  final int? id_event;
+  final int jumlah_investasi;
+  final String? tanggal_investasi;
 
   Investment({
-    required this.id,
+    this.id,
     required this.jumlah_investasi,
-    required this.tanggal_investasi,
+    this.tanggal_investasi,
+    this.id_event,
+    this.id_investor,
   });
+  Map<String, dynamic> toJson() {
+    return {
+      'jumlah_investasi': jumlah_investasi,
+    };
+  }
   factory Investment.fromJson(Map<String, dynamic> json) {
     return Investment(
       id: json["id"],
       jumlah_investasi: json["jumlah_investasi"],
       tanggal_investasi: json["tanggal_investasi"],
+      id_investor:json["id_investor"],
+      id_event:json["id_event"],
     );
   }
 }
@@ -52,6 +63,38 @@ class InvestmentModel with ChangeNotifier {
 
       if (response.statusCode == 200) {
         // Investment successful, handle the response
+        _investment = Investment.fromJson(jsonDecode(response.body));
+        // Navigate to the next screen or perform other actions
+      } else {
+        // Investment failed, handle the error
+        // message = 'Failed to register user';
+        print(response.body);
+        // Display an error message or perform other actions
+      }
+    } catch (error) {
+      // message = 'An error occurred during investment';
+      print(error.toString());
+    }
+    // callback();
+    // isLoading = false;
+    notifyListeners();
+  }
+  Future<void> createInvestment(Investment investment, int id_event, int id_investor) async {
+    // isLoading = true;
+    // notifyListeners();
+    final url = 'http://127.0.0.1:8000/investments/$id_event/$id_investor';
+    final headers = {'Content-Type': 'application/json'};
+    final body = jsonEncode(investment.toJson());
+    // notifyListeners();
+
+    try {
+      final response =
+          await http.post(Uri.parse(url), headers: headers, body: body);
+
+      if (response.statusCode == 200) {
+        // Investment successful, handle the response
+        // message = 'User Investment successfully';
+        print(response.body);
         _investment = Investment.fromJson(jsonDecode(response.body));
         // Navigate to the next screen or perform other actions
       } else {

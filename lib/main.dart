@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
+import 'package:tubes_app/model/model.investment.dart';
 import 'package:tubes_app/model/model.investor.dart';
 import 'package:tubes_app/model/model.pengajuanPeminjaman.dart';
 import 'package:tubes_app/views/admin/daftar.investasiku.root.dart';
@@ -54,6 +55,7 @@ void main() {
         ChangeNotifierProvider(create: (context) => EventTampilModel()),
         ChangeNotifierProvider(create: (context) => UserInvestorModel()),
         ChangeNotifierProvider(create: (context) => PengajuanPeminjamanModel()),
+        ChangeNotifierProvider(create: (context) => InvestmentModel()),
         // ChangeNotifierProvider(
         // create: (context) => PeminjamanRegistrationModel()),
         // ChangeNotifierProvider(create: (context) => xxxModel()),

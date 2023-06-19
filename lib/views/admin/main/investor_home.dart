@@ -746,6 +746,9 @@ class _HomeInvestorState extends State<HomeInvestor> {
                                                             eventModel
                                                                 .events[index]
                                                                 .terkumpul
+                                                                .toDouble()/eventModel
+                                                                .events[index]
+                                                                .target
                                                                 .toDouble(),
                                                       ),
                                                     ),
