@@ -425,35 +425,35 @@ class _UMKMMetodePaymentState extends State<UMKMMetodePayment> {
                                                 umkmModel
                                               .updateSaldoUmkm(umkm, umkmModel.user.id)
                                               .then((_) {
-                                                riwayatUmkmModel
-                                              .fetchData()
-                                              .then((_) {
-                                            // showDialog(
-                                            //   context: context,
-                                            //   barrierDismissible: false,
-                                            //   builder: (BuildContext context) {
-                                            //     return LoadingPage();
-                                            //   },
-                                            // );
+                                                // riwayatUmkmModel
+                                          //     .fetchData()
+                                          //     .then((_) {
+                                          //   // showDialog(
+                                          //   //   context: context,
+                                          //   //   barrierDismissible: false,
+                                          //   //   builder: (BuildContext context) {
+                                          //   //     return LoadingPage();
+                                          //   //   },
+                                          //   // );
 
-                                            Future.delayed(Duration(seconds: 0), () {
-                                              Navigator.push(
-                                                context,
-                                                PageRouteBuilder(
-                                                  transitionDuration: Duration(
-                                                      milliseconds:
-                                                          500), // Durasi animasi transisi
-                                                  pageBuilder: (context, animation,
-                                                      secondaryAnimation) {
-                                                    return FadeTransition(
-                                                      opacity: animation,
-                                                      child: InvestorNotifyTopUp(),
-                                                    );
-                                                  },
-                                                ),
-                                              );
-                                            });
-                                          });
+                                          //   Future.delayed(Duration(seconds: 0), () {
+                                          //     Navigator.push(
+                                          //       context,
+                                          //       PageRouteBuilder(
+                                          //         transitionDuration: Duration(
+                                          //             milliseconds:
+                                          //                 500), // Durasi animasi transisi
+                                          //         pageBuilder: (context, animation,
+                                          //             secondaryAnimation) {
+                                          //           return FadeTransition(
+                                          //             opacity: animation,
+                                          //             child: InvestorNotifyTopUp(),
+                                          //           );
+                                          //         },
+                                          //       ),
+                                          //     );
+                                          //   });
+                                          // });
                                           });
                                           });
                                           

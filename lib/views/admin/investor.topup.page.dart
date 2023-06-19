@@ -118,7 +118,10 @@ class _InvestorTopupPageState extends State<InvestorTopupPage> {
                   padding: EdgeInsets.only(
                       top: MediaQuery.of(context).size.width * 0.35),
                   alignment: Alignment.center,
+                  
                   child: Column(children: [
+                    SizedBox(
+                          height: MediaQuery.of(context).size.height * 0.15),
                     Text(
                       "Isi Saldo untuk transaksi",
                       style:
@@ -130,7 +133,7 @@ class _InvestorTopupPageState extends State<InvestorTopupPage> {
                           TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
                     ),
                     SizedBox(
-                      height: 20,
+                      height: 27,
                     ),
                     Consumer<UserLoginModel>(builder: (context, loginModel, _) {
                       return Consumer<UserInvestorModel>(
@@ -215,9 +218,7 @@ class _InvestorTopupPageState extends State<InvestorTopupPage> {
                                     Padding(
                                       padding: const EdgeInsets.only(top: 15.0),
                                       child: Container(
-                                        width:
-                                            MediaQuery.of(context).size.width *
-                                                0.57,
+                                        width: MediaQuery.of(context).size.width * 0.57,
                                         child: Text(
                                             "Saya setuju dengan syarat dan ketentuan yang berlaku dan telah ditentukan"),
                                       ),
@@ -251,7 +252,7 @@ class _InvestorTopupPageState extends State<InvestorTopupPage> {
                                     onPressed: isButtonEnabled
                                         ? () {
                                             investorModel.setSaldo(int.parse(
-                                                nominalController.text));
+                                                  nominalController.text));
                                             toggleCheckbox();
                                           }
                                         : null,

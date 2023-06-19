@@ -68,6 +68,8 @@ class _MetodePaymentState extends State<MetodePayment> {
                       builder: (context, investorModel, _) {
                     return Column(
                       children: [
+                        SizedBox(
+                          height: MediaQuery.of(context).size.height * 0.11),
                         Text(
                           "Pilih Metode Pembayaran Anda",
                           style: TextStyle(

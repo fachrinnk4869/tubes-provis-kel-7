@@ -1,16 +1,13 @@
 # tubes_app
 
-A new Flutter project.
+Ini merupakan aplikasi peer to peer landing yang mana menyediakan tempat untuk berinvestasi pada UMKM dan di atu sisi lainnya UMKM dapat mengajukan pinjaman yang dananya bersumber dari investasi UMKM.
 
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## Fitur Aplikasi
+- Sudut pandang UMKM
+  - Fitur Isi saldo untuk kemudian saldo yang ada di dompet akun UMKM akan dipakai untuk keperluan pembayaran cicilan.
+  - Fitur Tarik Saldo digunakan untuk menarik saldo khususnya dari dana yang dipinjam akan dimasukkan di dompet UMKM
+  - Fitur Pengajuan Pinjaman, fitur ini memungkinkan UMKM untuk mengajukan pinjaman hingga lebih dari satu pinjaman
+  - Fitur Pendanaan Berlangsung, berguna untuk memonitor Pendanaan yang sedang diajukan sehingga UMKM bisa mengetahui berapa dana yang telah terkumpul untuk pinjamannya.
+  - Fitur History, bisa melihat riwayat dari pinjaman yang telah selesai terkumpul atau pendanaan yang sedang berlangsung
+  - Fitur Bayar Cicilan, cicilan diakumulasikan dari total cicilan yang sedang berlangsung.
+    - Asumsi: Cicilan muncul setelah pendanaan ber status "selesai" yang mana cicilan bisa mulai dibayar setelah 1 bulan dari pendanaan selesai

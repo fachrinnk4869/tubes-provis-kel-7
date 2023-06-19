@@ -175,24 +175,25 @@ class _HomeInvestorState extends State<HomeInvestor> {
                                         ],
                                       ),
                                       Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Text(
-                                            currencyFormat.format(
-                                                investorModel.user.saldo),
-                                            style: TextStyle(
-                                                color: Colors.white,
-                                                fontWeight: FontWeight.w100),
-                                          ),
-                                        ],
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Text(
+                                        currencyFormat
+                                            .format(investorModel.user.saldo),
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                            fontWeight: FontWeight.w100,
+                                            fontSize: 24,),
                                       ),
+                                    ],
+                                  ),
                                       SizedBox(
                                         height: 10,
                                       ),
                                       Row(
                                         mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
+                                            MainAxisAlignment.spaceAround,
                                         children: [
                                           InkWell(
                                             onTap: () {
@@ -304,53 +305,6 @@ class _HomeInvestorState extends State<HomeInvestor> {
                                                       return FadeTransition(
                                                         opacity: animation,
                                                         child:
-                                                            InvestorTopupPage(),
-                                                      );
-                                                    },
-                                                  ),
-                                                );
-                                              });
-                                            },
-                                            child: Column(
-                                              children: [
-                                                Container(
-                                                  child: Padding(
-                                                    padding:
-                                                        const EdgeInsets.only(
-                                                            bottom: 10.0,
-                                                            left: 14,
-                                                            right: 14,
-                                                            top: 10),
-                                                    child: Image.asset(
-                                                      "public/images/scan_icon.png",
-                                                      height: 25,
-                                                    ),
-                                                  ),
-                                                ),
-                                                Text(
-                                                  "Scan",
-                                                  style: TextStyle(
-                                                      color: Colors.white),
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                          InkWell(
-                                            onTap: () {
-                                              Future.delayed(
-                                                  Duration(seconds: 0), () {
-                                                Navigator.push(
-                                                  context,
-                                                  PageRouteBuilder(
-                                                    transitionDuration: Duration(
-                                                        milliseconds:
-                                                            500), // Durasi animasi transisi
-                                                    pageBuilder: (context,
-                                                        animation,
-                                                        secondaryAnimation) {
-                                                      return FadeTransition(
-                                                        opacity: animation,
-                                                        child:
                                                             InvestorHistoryPage(),
                                                       );
                                                     },
@@ -440,11 +394,11 @@ class _HomeInvestorState extends State<HomeInvestor> {
                                               left: MediaQuery.of(context)
                                                       .size
                                                       .width *
-                                                  0.23,
+                                                  0.15,
                                               right: MediaQuery.of(context)
                                                       .size
                                                       .width *
-                                                  0.23),
+                                                  0.15),
                                           child: Text(
                                             "M U L A I  I N V E S T A S I",
                                             style: TextStyle(
@@ -663,7 +617,7 @@ class _HomeInvestorState extends State<HomeInvestor> {
                                       ),
                                       Container(
                                           alignment: Alignment.centerLeft,
-                                          child: Text("Jelajahi Investasi Umkm",
+                                          child: Text("Investasiku",
                                               style: TextStyle(
                                                   fontWeight: FontWeight.bold,
                                                   fontSize: 20,
@@ -720,7 +674,7 @@ class _HomeInvestorState extends State<HomeInvestor> {
                                                                       opacity:
                                                                           animation,
                                                                       child:
-                                                                          RootInvestasiku(),
+                                                                          InvestasikuPage(),
                                                                     );
                                                                   },
                                                                 ),
@@ -760,13 +714,13 @@ class _HomeInvestorState extends State<HomeInvestor> {
                                         ),
                                       ),
 
-                                      SearchBar(),
+                                      // SearchBar(),
                                       // Nanti kalo query nya dah dientry atau dah dienter
                                       // Masuk ke page -> SearchBarPage()
 
                                       Container(
                                           alignment: Alignment.centerLeft,
-                                          child: Text("investasiku",
+                                          child: Text("Jelajahi Investasi UMKM",
                                               style: TextStyle(
                                                   fontWeight: FontWeight.bold,
                                                   fontSize: 20,

@@ -141,42 +141,45 @@ class EventTampilModel with ChangeNotifier {
     notifyListeners();
   }
 Future<void> getEventBerlangsung(dynamic id_umkm, dynamic status) async {
-    // isLoading = true;
+  // isLoading = true;
+  // notifyListeners();
+  print("Masuk bang");
+  final url = 'http://127.0.0.1:8000/events/$id_umkm/$status';
+  // print(url);
+  // final headers = {'Content-Type': 'application/json'};
+  // final body = jsonEncode(event.toJson());
+
+  try {
+    final response = await http.get(Uri.parse(url));
+    print(response.statusCode);
+    print("=======");
     // notifyListeners();
-    // print("Masuk bang");
-    final url = 'http://127.0.0.1:8000/events/$id_umkm/$status';
-    // print(url);
-    // final headers = {'Content-Type': 'application/json'};
-    // final body = jsonEncode(event.toJson());
 
-    try {
-      final response = await http.get(Uri.parse(url));
-      // print(response);
-      // print("=======");
-      // notifyListeners();
-
-      if (response.statusCode == 200) {
-        // Event successful, handle the response
-        List jsonResponse = jsonDecode(response.body);
-        _eventsOnGoing = List<EventTampil>.from(
-                jsonResponse.map((json) => EventTampil.fromJson(json)))
-            .toList();
-        notifyListeners();
-        // _event = EventBerlangsung.fromJson(jsonDecode(response.body));
-        // print(_eventsOnGoing);
-        // Navigate to the next screen or perform other actions
-      } else {
-        // Event failed, handle the error
-        // message = 'Failed to register user';
-        print(response.body);
-        // Display an error message or perform other actions
-      }
-    } catch (error) {
-      // message = 'An error occurred during event';
-      print(error.toString());
+    if (response.statusCode == 200) {
+      // Event successful, handle the response
+      List<dynamic> jsonResponse = jsonDecode(response.body);
+      _eventsOnGoing = jsonResponse
+          .map((json) => EventTampil.fromJson(json))
+          .toList();
+      print(_eventsOnGoing.length);
+      notifyListeners();
+      // _event = EventBerlangsung.fromJson(jsonDecode(response.body));
+      // print(_eventsOnGoing);
+      // Navigate to the next screen or perform other actions
+    } else {
+      // Event failed, handle the error
+      // message = 'Failed to register user';
+      print(response.body);
+      // Display an error message or perform other actions
     }
-    // callback();
-    // isLoading = false;
-    notifyListeners();
+  } catch (error) {
+    // message = 'An error occurred during event';
+    print(error.toString());
   }
+  // callback();
+  // isLoading = false;
+  notifyListeners();
+}
+
+
 }

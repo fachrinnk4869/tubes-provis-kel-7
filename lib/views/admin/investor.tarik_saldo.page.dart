@@ -6,6 +6,7 @@ import 'package:tubes_app/views/admin/notify/investor.notify.tarik_saldo.dart';
 import 'package:tubes_app/views/utils/loading_page.dart';
 
 
+
 class InvestorTarikSaldo extends StatefulWidget {
   const InvestorTarikSaldo({super.key});
 
@@ -57,6 +58,8 @@ class _InvestorTarikSaldoState extends State<InvestorTarikSaldo> {
                   padding: EdgeInsets.only(top: 30),
                   alignment: Alignment.center,
                   child: Column(children: [
+                    SizedBox(
+                          height: MediaQuery.of(context).size.height * 0.19),
                     Image.asset(
                       "public/images/logo.png", //pastikan file ada di [project]/assets/images
                       height: 100,
@@ -69,7 +72,7 @@ class _InvestorTarikSaldoState extends State<InvestorTarikSaldo> {
                       ),
                     ),
                     SizedBox(
-                      height: 20,
+                      height: 25,
                     ),
                     Container(
                       width: MediaQuery.of(context).size.width * 0.75,
@@ -138,7 +141,7 @@ class _InvestorTarikSaldoState extends State<InvestorTarikSaldo> {
 
                             // FORM 2
                             Text(
-                              "Masukan No rek yang dituju",
+                              "Masukan No rekening yang dituju",
                               style: TextStyle(
                                 fontSize: 15,
                               ),
@@ -206,12 +209,11 @@ class _InvestorTarikSaldoState extends State<InvestorTarikSaldo> {
                                 },
                                 child: Padding(
                                   padding: const EdgeInsets.only(
-                                      left: 55, right: 55),
+                                      left: 35, right: 35),
                                   child: Text(
                                     "Submit",
                                     style: TextStyle(
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.bold),
+                                        fontSize: 16,),
                                   ),
                                 ),
                               ),

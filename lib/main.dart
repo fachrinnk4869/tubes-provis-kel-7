@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
+import 'package:tubes_app/model/model.cicilan.dart';
 import 'package:tubes_app/model/model.eventBerlangsung.dart';
 import 'package:tubes_app/model/model.investment.dart';
 import 'package:tubes_app/model/model.investor.dart';
@@ -62,6 +63,7 @@ void main() {
         ChangeNotifierProvider(create: (context) => RiwayatTampilModel()),
         ChangeNotifierProvider(create: (context) => EventBerlangsungModel()),
         ChangeNotifierProvider(create: (context) => RiwayatUmkmModel()),
+        ChangeNotifierProvider(create: (context) => CicilanModel()),
         // ChangeNotifierProvider(
         // create: (context) => PeminjamanRegistrationModel()),
         // ChangeNotifierProvider(create: (context) => xxxModel()),

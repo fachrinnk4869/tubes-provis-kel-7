@@ -83,7 +83,7 @@ class _InvestorHistoryPageState extends State<InvestorHistoryPage> {
                             itemCount: riwayat.events.length,
                             itemBuilder: (BuildContext context, int index) =>
                                 Container(
-                              width: MediaQuery.of(context).size.width * 0.8,
+                              width: MediaQuery.of(context).size.width * 0.85,
                               height: 50,
                               decoration: BoxDecoration(
                                 gradient: LinearGradient(

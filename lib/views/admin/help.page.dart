@@ -73,9 +73,8 @@ class _HelpPageState extends State<HelpPage> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const SizedBox(
-                        height: 20,
-                      ),
+                      SizedBox(
+                          height: MediaQuery.of(context).size.height * 0.25),
                       Container(
                         alignment: Alignment.center,
                         child: Center(
@@ -100,116 +99,111 @@ class _HelpPageState extends State<HelpPage> {
                       const SizedBox(
                         height: 25,
                       ),
-                      Container(
-                        // height: 20,
-                        padding: const EdgeInsets.only(
-                            right: 7, left: 7, top: 0, bottom: 7),
-                        decoration: BoxDecoration(
-                            // color: Colors.white,
-                            borderRadius: BorderRadius.circular(6),
+                      Padding(
+                        padding: EdgeInsets.only(
+                            left: MediaQuery.of(context).size.width * 0.07,
+                            right: MediaQuery.of(context).size.width * 0.07),
+                        child: Container(
+                          // height: 20,
+                          padding: const EdgeInsets.only(
+                              right: 10, left: 10, top: 32, bottom: 15),
+                          decoration: BoxDecoration(
+                            color: Colors.white, // Latar belakang putih
+                            borderRadius: BorderRadius.circular(10),
                             boxShadow: [
                               BoxShadow(
-                                color: Colors.black.withOpacity(0.3),
-                                blurRadius: 7,
+                                color: Colors.black.withOpacity(
+                                    0.4), // Warna shadow hitam dengan kecerahan (opacity) 0.2
+                                offset: Offset(4, 4), // Offset bayangan (X, Y)
+                                blurRadius: 4, // Jumlah penyebaran bayangan
+                                spreadRadius:
+                                    1, // Jumlah penyebaran bayangan secara horizontal
                               ),
-                            ]),
-                        child: Container(
-                          padding: const EdgeInsets.only(
-                              right: 30, left: 30, top: 32, bottom: 15),
-                          decoration: BoxDecoration(
-                              // color: Colors.white,
-                              borderRadius: BorderRadius.circular(10),
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.white,
-                                  // blurRadius: 7,
-                                ),
-                              ]),
+                            ],
+                          ),
                           child: Column(
                             children: [
-                              ElevatedButton(
-                                style: ElevatedButton.styleFrom(
-                                  primary:
-                                      HexColor("#FFFFFF"), // Background color
-                                  onPrimary: Colors
-                                      .white, // Text Color (Foreground color)
-                                  side: BorderSide(
-                                      color: HexColor("#868686"), width: 1),
-                                ),
-                                onPressed: () {},
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Text(
-                                      "Syarat Ketentuan Aplikasi",
-                                      style: TextStyle(
-                                          color: HexColor("#868686"),
-                                          fontSize: 16,
-                                          fontWeight: FontWeight.bold),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              const SizedBox(
-                                height: 10,
-                              ),
-                              ElevatedButton(
-                                style: ElevatedButton.styleFrom(
-                                  primary:
-                                      HexColor("#FFFFFF"), // Background color
-                                  onPrimary: Colors
-                                      .white, // Text Color (Foreground color)
-                                  side: BorderSide(
-                                      color: HexColor("#868686"), width: 1),
-                                ),
-                                onPressed: () {},
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Text(
-                                      "Cara Penggunaan Aplikasi",
-                                      style: TextStyle(
-                                          color: HexColor("#868686"),
-                                          fontSize: 16,
-                                          fontWeight: FontWeight.bold),
-                                    ),
-                                  ],
+                              Padding(
+                                padding: EdgeInsets.only(
+                                    left: MediaQuery.of(context).size.width *
+                                        0.07,
+                                    right: MediaQuery.of(context).size.width *
+                                        0.07),
+                                child: ElevatedButton(
+                                  style: ElevatedButton.styleFrom(
+                                    primary:
+                                        HexColor("#FFFFFF"), // Background color
+                                    onPrimary: Colors
+                                        .white, // Text Color (Foreground color)
+                                    side: BorderSide(
+                                        color: HexColor("#868686"), width: 1),
+                                  ),
+                                  onPressed: () {},
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Text(
+                                        "Syarat Ketentuan Aplikasi",
+                                        style: TextStyle(
+                                            color: HexColor("#868686"),
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                    ],
+                                  ),
                                 ),
                               ),
                               const SizedBox(
-                                height: 10,
+                                height: 23,
                               ),
-                              ElevatedButton(
-                                style: ElevatedButton.styleFrom(
-                                  primary:
-                                      HexColor("#202441"), // Background color
-                                  onPrimary: Colors
-                                      .white, // Text Color (Foreground color)
-                                ),
-                                onPressed: () {
-                                  _launchWhatsApp();
-                                },
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Image.asset(
-                                      "public/images/logo_wa.png", //pastikan file ada di [project]/assets/images
-                                      height: 20,
-                                    ),
-                                    SizedBox(
-                                      width: 10,
-                                    ),
-                                    Text(
-                                      "Hubungi Kami",
-                                      style: TextStyle(
-                                          fontSize: 16,
-                                          fontWeight: FontWeight.bold),
-                                    ),
-                                  ],
+                              Padding(
+                                padding: EdgeInsets.only(
+                                    left: MediaQuery.of(context).size.width *
+                                        0.07,
+                                    right: MediaQuery.of(context).size.width *
+                                        0.07),
+                                child: ElevatedButton(
+                                  style: ElevatedButton.styleFrom(
+                                    primary:
+                                        HexColor("#FFFFFF"), // Background color
+                                    onPrimary: Colors
+                                        .white, // Text Color (Foreground color)
+                                    side: BorderSide(
+                                        color: HexColor("#868686"), width: 1),
+                                  ),
+                                  onPressed: () {},
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Text(
+                                        "Cara Penggunaan Aplikasi",
+                                        style: TextStyle(
+                                            color: HexColor("#868686"),
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                    ],
+                                  ),
                                 ),
                               ),
                               const SizedBox(
-                                height: 5,
+                                height: 23,
+                              ),
+                              Padding(
+                                padding: EdgeInsets.only(
+                                    left: MediaQuery.of(context).size.width *
+                                        0.07,
+                                    right: MediaQuery.of(context).size.width *
+                                        0.07),
+                                child: Text(
+                                  "Email at : est@provis.com",
+                                  style: TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              ),
+                              const SizedBox(
+                                height: 20,
                               ),
                             ],
                           ),

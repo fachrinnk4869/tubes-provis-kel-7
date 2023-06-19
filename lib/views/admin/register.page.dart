@@ -72,7 +72,7 @@ class _InvestorRegistPageState extends State<InvestorRegistPage> {
                       ),
                       // color: Colors.grey,
                       width: 300,
-                      padding: const EdgeInsets.all(15.0),
+                      padding: EdgeInsets.only(left: 15, right: 15, top: MediaQuery.of(context).size.height * 0.085),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [

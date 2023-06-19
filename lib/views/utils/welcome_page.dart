@@ -26,7 +26,7 @@ class _WelcomePageState extends State<WelcomePage> {
     super.initState();
 
     // Tampilkan loadingPage selama 2 detik saat aplikasi baru dibuka
-    Future.delayed(Duration(seconds: 1), () {
+    Future.delayed(Duration(seconds: 0), () {
       Navigator.pushReplacement(
         context,
         PageRouteBuilder(
@@ -155,22 +155,15 @@ class _WelcomePageContentState extends State<WelcomePageContent> {
                         ),
                       ),
                       SizedBox(
-                          height: MediaQuery.of(context).size.height * 0.4),
+                          height: MediaQuery.of(context).size.height * 0.56),
                       Padding(
                         padding: const EdgeInsets.only(left: 20, right: 20),
                         child: Container(
                           width: MediaQuery.of(context).size.width * 0.85,
                           child: ElevatedButton(
                             onPressed: () {
-                              showDialog(
-                                context: context,
-                                barrierDismissible: false,
-                                builder: (BuildContext context) {
-                                  return LoadingPage();
-                                },
-                              );
 
-                              Future.delayed(Duration(seconds: 1), () {
+                              Future.delayed(Duration(seconds: 0), () {
                                 Navigator.push(
                                   context,
                                   PageRouteBuilder(
@@ -202,7 +195,7 @@ class _WelcomePageContentState extends State<WelcomePageContent> {
                               padding: const EdgeInsets.only(
                                   left: 8.0, right: 8.0, bottom: 5),
                               child: const Text(
-                                'Masuk',
+                                'M a s u k',
                                 style: TextStyle(
                                   color: Colors.white,
                                   fontWeight: FontWeight.w600,
@@ -219,15 +212,8 @@ class _WelcomePageContentState extends State<WelcomePageContent> {
                           width: MediaQuery.of(context).size.width * 0.85,
                           child: ElevatedButton(
                             onPressed: () {
-                              showDialog(
-                                context: context,
-                                barrierDismissible: false,
-                                builder: (BuildContext context) {
-                                  return LoadingPage();
-                                },
-                              );
 
-                              Future.delayed(Duration(seconds: 2), () {
+                              Future.delayed(Duration(seconds: 0), () {
                                 Navigator.push(
                                   context,
                                   PageRouteBuilder(
@@ -258,7 +244,7 @@ class _WelcomePageContentState extends State<WelcomePageContent> {
                               padding: const EdgeInsets.only(
                                   left: 8.0, right: 8.0, bottom: 5),
                               child: const Text(
-                                'Daftar Sekarang',
+                                'D a f t a r  S e k a r a n g',
                                 style: TextStyle(
                                   fontWeight: FontWeight.bold,
                                   fontSize: 20,
@@ -274,15 +260,8 @@ class _WelcomePageContentState extends State<WelcomePageContent> {
                           width: MediaQuery.of(context).size.width * 0.85,
                           child: ElevatedButton(
                             onPressed: () {
-                              showDialog(
-                                context: context,
-                                barrierDismissible: false,
-                                builder: (BuildContext context) {
-                                  return LoadingPage();
-                                },
-                              );
 
-                              Future.delayed(Duration(seconds: 2), () {
+                              Future.delayed(Duration(seconds: 0), () {
                                 Navigator.push(
                                   context,
                                   PageRouteBuilder(
@@ -313,7 +292,7 @@ class _WelcomePageContentState extends State<WelcomePageContent> {
                               padding: const EdgeInsets.only(
                                   left: 8.0, right: 8.0, bottom: 5),
                               child: const Text(
-                                'Butuh Bantuan?',
+                                'B u t u h  B a n t u a n ?',
                                 style: TextStyle(
                                   fontWeight: FontWeight.w600,
                                   fontSize: 17,

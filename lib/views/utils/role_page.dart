@@ -19,19 +19,19 @@ class _RolePageState extends State<RolePage> {
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async {
-        showDialog(
-          context: context,
-          barrierDismissible: false,
-          builder: (BuildContext context) {
-            return LoadingPage();
-          },
-        );
+        // showDialog(
+        //   context: context,
+        //   barrierDismissible: false,
+        //   builder: (BuildContext context) {
+        //     return LoadingPage();
+        //   },
+        // );
 
-        Future.delayed(Duration(seconds: 2), () {
+        Future.delayed(Duration(seconds: 0), () {
           // Navigator.popUntil(context, ModalRoute.withName('/TransmittingPage'));
           Navigator.pop(context);
-          Navigator.pop(context);
-          Navigator.pop(context);
+          // Navigator.pop(context);
+          // Navigator.pop(context);
         });
 
         // Mengabaikan perintah "back" saat loadingPage sedang ditampilkan
@@ -59,15 +59,15 @@ class _RolePageState extends State<RolePage> {
                     children: [
                       Container(
                         child: Padding(
-                          padding: const EdgeInsets.only(
-                              left: 17, right: 17, top: 35),
+                          padding: EdgeInsets.only(
+                              left: 17, right: 17, top: MediaQuery.of(context).size.height * 0.17),
                           child: Container(
                             alignment: Alignment.center,
                             child: Center(
                               child: Column(
                                 children: [
                                   Padding(
-                                    padding: const EdgeInsets.only(bottom: 3),
+                                    padding: const EdgeInsets.only(bottom: 17),
                                     child: const Text(
                                       "Daftar sebagai?",
                                       textAlign: TextAlign.center,
@@ -80,13 +80,13 @@ class _RolePageState extends State<RolePage> {
                                   SizedBox(height: 10),
                                   InkWell(
                                     onTap: () {
-                                      showDialog(
-                                        context: context,
-                                        barrierDismissible: false,
-                                        builder: (BuildContext context) {
-                                          return LoadingPage();
-                                        },
-                                      );
+                                      // showDialog(
+                                      //   context: context,
+                                      //   barrierDismissible: false,
+                                      //   builder: (BuildContext context) {
+                                      //     return LoadingPage();
+                                      //   },
+                                      // );
 
                                       Future.delayed(Duration(seconds: 0), () {
                                         Navigator.push(
@@ -176,13 +176,6 @@ class _RolePageState extends State<RolePage> {
                                   SizedBox(height: 10),
                                   InkWell(
                                     onTap: () {
-                                      showDialog(
-                                        context: context,
-                                        barrierDismissible: false,
-                                        builder: (BuildContext context) {
-                                          return LoadingPage();
-                                        },
-                                      );
                                       
                                       Future.delayed(Duration(seconds: 0), () {
                                         Navigator.push(

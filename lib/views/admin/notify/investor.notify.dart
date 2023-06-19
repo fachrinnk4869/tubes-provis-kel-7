@@ -53,6 +53,8 @@ class _InvestorNotifyDataDiriState extends State<InvestorNotifyDataDiri> {
               child: Container(
                 child: Column(
                   children: [
+                    SizedBox(
+                          height: MediaQuery.of(context).size.height * 0.19),
                     Container(
                       child: Padding(
                         padding:

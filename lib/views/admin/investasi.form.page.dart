@@ -36,7 +36,7 @@ class _InvestasiFormPageState extends State<InvestasiFormPage> {
         //   },
         // );
 
-        Future.delayed(Duration(seconds: 2), () {
+        Future.delayed(Duration(seconds: 0), () {
           // Navigator.popUntil(context, ModalRoute.withName('/TransmittingPage'));
           // Navigator.pop(context);
           // Navigator.pop(context);
@@ -118,7 +118,7 @@ class _InvestasiFormPageState extends State<InvestasiFormPage> {
                           Padding(padding: EdgeInsets.only(bottom: 15)),
                           TextForm(
                             controller: nameController,
-                            text: 'Nadhief Athallah Isya',
+                            text: 'Nadhief Athallah Raisyad',
                             obscureText: false,
                             textInputType: TextInputType.name,
                           ),
@@ -211,7 +211,7 @@ class _InvestasiFormPageState extends State<InvestasiFormPage> {
                                 //   },
                                 // );
 
-                                Future.delayed(Duration(seconds: 2), () {
+                                Future.delayed(Duration(seconds: 0), () {
                                   Navigator.push(
                                     context,
                                     PageRouteBuilder(

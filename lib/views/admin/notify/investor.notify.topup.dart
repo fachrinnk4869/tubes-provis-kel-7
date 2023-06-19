@@ -52,6 +52,8 @@ class _InvestorNotifyTopUpState extends State<InvestorNotifyTopUp> {
               child: Container(
                 child: Column(
                   children: [
+                    SizedBox(
+                          height: MediaQuery.of(context).size.height * 0.19),
                     Container(
                       child: Padding(
                         padding:
