@@ -2,8 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:hexcolor/hexcolor.dart';
+import 'package:provider/provider.dart';
+import 'package:tubes_app/model/model.riwayatSaldo.dart';
+import 'package:tubes_app/model/model.riwayatTampil.dart';
 import 'package:tubes_app/views/admin/root.home.dart';
 import 'package:tubes_app/views/utils/loading_page.dart';
+
+import '../daftar.umkm.root.dart';
 
 class InvestorHistoryPage extends StatefulWidget {
   const InvestorHistoryPage({super.key});
@@ -70,821 +75,123 @@ class _InvestorHistoryPageState extends State<InvestorHistoryPage> {
                         SizedBox(
                           height: 10,
                         ),
-                        Container(
-                          width: MediaQuery.of(context).size.width * 0.8,
-                          height: 50,
-                          decoration: BoxDecoration(
-                            gradient: LinearGradient(
-                              begin: Alignment.center,
-                              end: Alignment.bottomCenter,
-                              colors: [
-                                HexColor("#202441").withOpacity(0.2),
-                                HexColor("#FFFFFF").withOpacity(0.3),
-                              ],
-                            ),
-                            borderRadius: BorderRadius.circular(10),
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.grey,
-                                blurRadius: 4,
-                                offset: Offset(4, 8), // Shadow position
+                        Consumer<RiwayatTampilModel>(
+                            builder: (context, riwayat, _) {
+                          return ListView.builder(
+                            shrinkWrap: true,
+                            scrollDirection: Axis.vertical,
+                            itemCount: riwayat.events.length,
+                            itemBuilder: (BuildContext context, int index) =>
+                                Container(
+                              width: MediaQuery.of(context).size.width * 0.8,
+                              height: 50,
+                              decoration: BoxDecoration(
+                                gradient: LinearGradient(
+                                  begin: Alignment.center,
+                                  end: Alignment.bottomCenter,
+                                  colors: [
+                                    HexColor("#202441").withOpacity(0.2),
+                                    HexColor("#FFFFFF").withOpacity(0.3),
+                                  ],
+                                ),
+                                borderRadius: BorderRadius.circular(10),
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.grey,
+                                    blurRadius: 4,
+                                    offset: Offset(4, 8), // Shadow position
+                                  ),
+                                ],
                               ),
-                            ],
-                          ),
-                          child: Padding(
-                            padding: const EdgeInsets.only(left: 20, right: 10),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Row(
-                                  crossAxisAlignment: CrossAxisAlignment.center,
+                              child: Padding(
+                                padding:
+                                    const EdgeInsets.only(left: 20, right: 10),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
                                   children: [
-                                    ColorFiltered(
-                                      colorFilter: ColorFilter.mode(
-                                          HexColor("#202441"), BlendMode.srcIn),
-                                      child: Image.asset(
-                                        "public/images/logo_send.png",
-                                        height: 40,
-                                      ),
-                                    ),
-                                    SizedBox(
-                                      width: 10,
-                                    ),
-                                    Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
+                                    Row(
                                       crossAxisAlignment:
-                                          CrossAxisAlignment.start,
+                                          CrossAxisAlignment.center,
                                       children: [
-                                        Text(
-                                          "Bayar Tagihan",
-                                          style: TextStyle(
-                                            color: HexColor("#202441"),
-                                            fontSize: 14,
-                                            fontWeight: FontWeight.normal,
-                                          ),
+                                        riwayat.events[index].deskripsi ==
+                                                "topup"
+                                            ? ColorFiltered(
+                                                colorFilter: ColorFilter.mode(
+                                                    HexColor("#202441"),
+                                                    BlendMode.srcIn),
+                                                child: Image.asset(
+                                                  "public/images/logo_receive.png",
+                                                  height: 40,
+                                                ),
+                                              )
+                                            : ColorFiltered(
+                                                colorFilter: ColorFilter.mode(
+                                                    HexColor("#202441"),
+                                                    BlendMode.srcIn),
+                                                child: Image.asset(
+                                                  "public/images/logo_send.png",
+                                                  height: 40,
+                                                ),
+                                              ),
+                                        SizedBox(
+                                          width: 10,
                                         ),
-                                        Text(
-                                          "08 Mar 2023 - 18.30",
-                                          style: TextStyle(
-                                            color: HexColor("#202441"),
-                                            fontSize: 14,
-                                            fontWeight: FontWeight.normal,
-                                          ),
+                                        Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Text(
+                                              riwayat.events[index].deskripsi,
+                                              style: TextStyle(
+                                                color: HexColor("#202441"),
+                                                fontSize: 14,
+                                                fontWeight: FontWeight.normal,
+                                              ),
+                                            ),
+                                            Text(
+                                              // riwayat.events[index].date_created
+                                              //     .toString(),
+                                              "08 Mar 2023 - 18.30",
+                                              style: TextStyle(
+                                                color: HexColor("#202441"),
+                                                fontSize: 14,
+                                                fontWeight: FontWeight.normal,
+                                              ),
+                                            ),
+                                          ],
                                         ),
                                       ],
                                     ),
+                                    riwayat.events[index].deskripsi == "topup"
+                                        ? Text(
+                                            "+Rp. " +
+                                                riwayat.events[index].nominal
+                                                    .toString(),
+                                            style: TextStyle(
+                                              color: HexColor("#202441"),
+                                              fontSize: 14,
+                                              fontWeight: FontWeight.normal,
+                                            ),
+                                          )
+                                        : Text(
+                                            "-Rp. " +
+                                                riwayat.events[index].nominal
+                                                    .toString(),
+                                            style: TextStyle(
+                                              color: HexColor("#202441"),
+                                              fontSize: 14,
+                                              fontWeight: FontWeight.normal,
+                                            ),
+                                          ),
                                   ],
                                 ),
-                                Text(
-                                  "-Rp. 50.000",
-                                  style: TextStyle(
-                                    color: HexColor("#202441"),
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.normal,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                        SizedBox(
-                          height: 20,
-                        ),
-                        Container(
-                          width: MediaQuery.of(context).size.width * 0.8,
-                          height: 50,
-                          decoration: BoxDecoration(
-                            gradient: LinearGradient(
-                              begin: Alignment.center,
-                              end: Alignment.bottomCenter,
-                              colors: [
-                                HexColor("#202441").withOpacity(0.2),
-                                HexColor("#FFFFFF").withOpacity(0.3),
-                              ],
-                            ),
-                            borderRadius: BorderRadius.circular(10),
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.grey,
-                                blurRadius: 4,
-                                offset: Offset(4, 8), // Shadow position
                               ),
-                            ],
-                          ),
-                          child: Padding(
-                            padding: const EdgeInsets.only(left: 20, right: 10),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Row(
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    ColorFiltered(
-                                      colorFilter: ColorFilter.mode(
-                                          HexColor("#202441"), BlendMode.srcIn),
-                                      child: Image.asset(
-                                        "public/images/logo_receive.png",
-                                        height: 37,
-                                      ),
-                                    ),
-                                    SizedBox(
-                                      width: 10,
-                                    ),
-                                    Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          "Top Up",
-                                          style: TextStyle(
-                                            color: HexColor("#202441"),
-                                            fontSize: 14,
-                                            fontWeight: FontWeight.normal,
-                                          ),
-                                        ),
-                                        Text(
-                                          "08 Mar 2023 - 18.30",
-                                          style: TextStyle(
-                                            color: HexColor("#202441"),
-                                            fontSize: 14,
-                                            fontWeight: FontWeight.normal,
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                                Text(
-                                  "+Rp. 25.000",
-                                  style: TextStyle(
-                                    color: HexColor("#202441"),
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.normal,
-                                  ),
-                                ),
-                                // Text("Indomart"),
-                              ],
                             ),
-                          ),
-                        ),
-                        SizedBox(
-                          height: 20,
-                        ),
-                        Container(
-                          width: MediaQuery.of(context).size.width * 0.8,
-                          height: 50,
-                          decoration: BoxDecoration(
-                            gradient: LinearGradient(
-                              begin: Alignment.center,
-                              end: Alignment.bottomCenter,
-                              colors: [
-                                HexColor("#202441").withOpacity(0.2),
-                                HexColor("#FFFFFF").withOpacity(0.3),
-                              ],
-                            ),
-                            borderRadius: BorderRadius.circular(10),
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.grey,
-                                blurRadius: 4,
-                                offset: Offset(4, 8), // Shadow position
-                              ),
-                            ],
-                          ),
-                          child: Padding(
-                            padding: const EdgeInsets.only(left: 20, right: 10),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Row(
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    ColorFiltered(
-                                      colorFilter: ColorFilter.mode(
-                                          HexColor("#202441"), BlendMode.srcIn),
-                                      child: Image.asset(
-                                        "public/images/logo_send.png",
-                                        height: 40,
-                                      ),
-                                    ),
-                                    SizedBox(
-                                      width: 10,
-                                    ),
-                                    Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          "Bayar Tagihan",
-                                          style: TextStyle(
-                                            color: HexColor("#202441"),
-                                            fontSize: 14,
-                                            fontWeight: FontWeight.normal,
-                                          ),
-                                        ),
-                                        Text(
-                                          "08 Mar 2023 - 18.30",
-                                          style: TextStyle(
-                                            color: HexColor("#202441"),
-                                            fontSize: 14,
-                                            fontWeight: FontWeight.normal,
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                                Text(
-                                  "-Rp. 50.000",
-                                  style: TextStyle(
-                                    color: HexColor("#202441"),
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.normal,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                        SizedBox(
-                          height: 20,
-                        ),
-                        Container(
-                          width: MediaQuery.of(context).size.width * 0.8,
-                          height: 50,
-                          decoration: BoxDecoration(
-                            gradient: LinearGradient(
-                              begin: Alignment.center,
-                              end: Alignment.bottomCenter,
-                              colors: [
-                                HexColor("#202441").withOpacity(0.2),
-                                HexColor("#FFFFFF").withOpacity(0.3),
-                              ],
-                            ),
-                            borderRadius: BorderRadius.circular(10),
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.grey,
-                                blurRadius: 4,
-                                offset: Offset(4, 8), // Shadow position
-                              ),
-                            ],
-                          ),
-                          child: Padding(
-                            padding: const EdgeInsets.only(left: 20, right: 10),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Row(
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    ColorFiltered(
-                                      colorFilter: ColorFilter.mode(
-                                          HexColor("#202441"), BlendMode.srcIn),
-                                      child: Image.asset(
-                                        "public/images/logo_receive.png",
-                                        height: 37,
-                                      ),
-                                    ),
-                                    SizedBox(
-                                      width: 10,
-                                    ),
-                                    Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          "Top Up",
-                                          style: TextStyle(
-                                            color: HexColor("#202441"),
-                                            fontSize: 14,
-                                            fontWeight: FontWeight.normal,
-                                          ),
-                                        ),
-                                        Text(
-                                          "08 Mar 2023 - 18.30",
-                                          style: TextStyle(
-                                            color: HexColor("#202441"),
-                                            fontSize: 14,
-                                            fontWeight: FontWeight.normal,
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                                Text(
-                                  "+Rp. 25.000",
-                                  style: TextStyle(
-                                    color: HexColor("#202441"),
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.normal,
-                                  ),
-                                ),
-                                // Text("Indomart"),
-                              ],
-                            ),
-                          ),
-                        ),
-                        SizedBox(
-                          height: 20,
-                        ),
-                        Container(
-                          width: MediaQuery.of(context).size.width * 0.8,
-                          height: 50,
-                          decoration: BoxDecoration(
-                            gradient: LinearGradient(
-                              begin: Alignment.center,
-                              end: Alignment.bottomCenter,
-                              colors: [
-                                HexColor("#202441").withOpacity(0.2),
-                                HexColor("#FFFFFF").withOpacity(0.3),
-                              ],
-                            ),
-                            borderRadius: BorderRadius.circular(10),
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.grey,
-                                blurRadius: 4,
-                                offset: Offset(4, 8), // Shadow position
-                              ),
-                            ],
-                          ),
-                          child: Padding(
-                            padding: const EdgeInsets.only(left: 20, right: 10),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Row(
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    ColorFiltered(
-                                      colorFilter: ColorFilter.mode(
-                                          HexColor("#202441"), BlendMode.srcIn),
-                                      child: Image.asset(
-                                        "public/images/logo_send.png",
-                                        height: 40,
-                                      ),
-                                    ),
-                                    SizedBox(
-                                      width: 10,
-                                    ),
-                                    Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          "Bayar Tagihan",
-                                          style: TextStyle(
-                                            color: HexColor("#202441"),
-                                            fontSize: 14,
-                                            fontWeight: FontWeight.normal,
-                                          ),
-                                        ),
-                                        Text(
-                                          "08 Mar 2023 - 18.30",
-                                          style: TextStyle(
-                                            color: HexColor("#202441"),
-                                            fontSize: 14,
-                                            fontWeight: FontWeight.normal,
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                                Text(
-                                  "-Rp. 50.000",
-                                  style: TextStyle(
-                                    color: HexColor("#202441"),
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.normal,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                        SizedBox(
-                          height: 20,
-                        ),
-                        Container(
-                          width: MediaQuery.of(context).size.width * 0.8,
-                          height: 50,
-                          decoration: BoxDecoration(
-                            gradient: LinearGradient(
-                              begin: Alignment.center,
-                              end: Alignment.bottomCenter,
-                              colors: [
-                                HexColor("#202441").withOpacity(0.2),
-                                HexColor("#FFFFFF").withOpacity(0.3),
-                              ],
-                            ),
-                            borderRadius: BorderRadius.circular(10),
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.grey,
-                                blurRadius: 4,
-                                offset: Offset(4, 8), // Shadow position
-                              ),
-                            ],
-                          ),
-                          child: Padding(
-                            padding: const EdgeInsets.only(left: 20, right: 10),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Row(
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    ColorFiltered(
-                                      colorFilter: ColorFilter.mode(
-                                          HexColor("#202441"), BlendMode.srcIn),
-                                      child: Image.asset(
-                                        "public/images/logo_receive.png",
-                                        height: 37,
-                                      ),
-                                    ),
-                                    SizedBox(
-                                      width: 10,
-                                    ),
-                                    Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          "Top Up",
-                                          style: TextStyle(
-                                            color: HexColor("#202441"),
-                                            fontSize: 14,
-                                            fontWeight: FontWeight.normal,
-                                          ),
-                                        ),
-                                        Text(
-                                          "08 Mar 2023 - 18.30",
-                                          style: TextStyle(
-                                            color: HexColor("#202441"),
-                                            fontSize: 14,
-                                            fontWeight: FontWeight.normal,
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                                Text(
-                                  "+Rp. 25.000",
-                                  style: TextStyle(
-                                    color: HexColor("#202441"),
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.normal,
-                                  ),
-                                ),
-                                // Text("Indomart"),
-                              ],
-                            ),
-                          ),
-                        ),
-                        SizedBox(
-                          height: 20,
-                        ),
-                        Container(
-                          width: MediaQuery.of(context).size.width * 0.8,
-                          height: 50,
-                          decoration: BoxDecoration(
-                            gradient: LinearGradient(
-                              begin: Alignment.center,
-                              end: Alignment.bottomCenter,
-                              colors: [
-                                HexColor("#202441").withOpacity(0.2),
-                                HexColor("#FFFFFF").withOpacity(0.3),
-                              ],
-                            ),
-                            borderRadius: BorderRadius.circular(10),
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.grey,
-                                blurRadius: 4,
-                                offset: Offset(4, 8), // Shadow position
-                              ),
-                            ],
-                          ),
-                          child: Padding(
-                            padding: const EdgeInsets.only(left: 20, right: 10),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Row(
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    ColorFiltered(
-                                      colorFilter: ColorFilter.mode(
-                                          HexColor("#202441"), BlendMode.srcIn),
-                                      child: Image.asset(
-                                        "public/images/logo_send.png",
-                                        height: 40,
-                                      ),
-                                    ),
-                                    SizedBox(
-                                      width: 10,
-                                    ),
-                                    Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          "Bayar Tagihan",
-                                          style: TextStyle(
-                                            color: HexColor("#202441"),
-                                            fontSize: 14,
-                                            fontWeight: FontWeight.normal,
-                                          ),
-                                        ),
-                                        Text(
-                                          "08 Mar 2023 - 18.30",
-                                          style: TextStyle(
-                                            color: HexColor("#202441"),
-                                            fontSize: 14,
-                                            fontWeight: FontWeight.normal,
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                                Text(
-                                  "-Rp. 50.000",
-                                  style: TextStyle(
-                                    color: HexColor("#202441"),
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.normal,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                        SizedBox(
-                          height: 20,
-                        ),
-                        Container(
-                          width: MediaQuery.of(context).size.width * 0.8,
-                          height: 50,
-                          decoration: BoxDecoration(
-                            gradient: LinearGradient(
-                              begin: Alignment.center,
-                              end: Alignment.bottomCenter,
-                              colors: [
-                                HexColor("#202441").withOpacity(0.2),
-                                HexColor("#FFFFFF").withOpacity(0.3),
-                              ],
-                            ),
-                            borderRadius: BorderRadius.circular(10),
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.grey,
-                                blurRadius: 4,
-                                offset: Offset(4, 8), // Shadow position
-                              ),
-                            ],
-                          ),
-                          child: Padding(
-                            padding: const EdgeInsets.only(left: 20, right: 10),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Row(
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    ColorFiltered(
-                                      colorFilter: ColorFilter.mode(
-                                          HexColor("#202441"), BlendMode.srcIn),
-                                      child: Image.asset(
-                                        "public/images/logo_receive.png",
-                                        height: 37,
-                                      ),
-                                    ),
-                                    SizedBox(
-                                      width: 10,
-                                    ),
-                                    Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          "Top Up",
-                                          style: TextStyle(
-                                            color: HexColor("#202441"),
-                                            fontSize: 14,
-                                            fontWeight: FontWeight.normal,
-                                          ),
-                                        ),
-                                        Text(
-                                          "08 Mar 2023 - 18.30",
-                                          style: TextStyle(
-                                            color: HexColor("#202441"),
-                                            fontSize: 14,
-                                            fontWeight: FontWeight.normal,
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                                Text(
-                                  "+Rp. 25.000",
-                                  style: TextStyle(
-                                    color: HexColor("#202441"),
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.normal,
-                                  ),
-                                ),
-                                // Text("Indomart"),
-                              ],
-                            ),
-                          ),
-                        ),
-                        SizedBox(
-                          height: 20,
-                        ),
-                        Container(
-                          width: MediaQuery.of(context).size.width * 0.8,
-                          height: 50,
-                          decoration: BoxDecoration(
-                            gradient: LinearGradient(
-                              begin: Alignment.center,
-                              end: Alignment.bottomCenter,
-                              colors: [
-                                HexColor("#202441").withOpacity(0.2),
-                                HexColor("#FFFFFF").withOpacity(0.3),
-                              ],
-                            ),
-                            borderRadius: BorderRadius.circular(10),
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.grey,
-                                blurRadius: 4,
-                                offset: Offset(4, 8), // Shadow position
-                              ),
-                            ],
-                          ),
-                          child: Padding(
-                            padding: const EdgeInsets.only(left: 20, right: 10),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Row(
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    ColorFiltered(
-                                      colorFilter: ColorFilter.mode(
-                                          HexColor("#202441"), BlendMode.srcIn),
-                                      child: Image.asset(
-                                        "public/images/logo_send.png",
-                                        height: 40,
-                                      ),
-                                    ),
-                                    SizedBox(
-                                      width: 10,
-                                    ),
-                                    Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          "Bayar Tagihan",
-                                          style: TextStyle(
-                                            color: HexColor("#202441"),
-                                            fontSize: 14,
-                                            fontWeight: FontWeight.normal,
-                                          ),
-                                        ),
-                                        Text(
-                                          "08 Mar 2023 - 18.30",
-                                          style: TextStyle(
-                                            color: HexColor("#202441"),
-                                            fontSize: 14,
-                                            fontWeight: FontWeight.normal,
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                                Text(
-                                  "-Rp. 50.000",
-                                  style: TextStyle(
-                                    color: HexColor("#202441"),
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.normal,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                        SizedBox(
-                          height: 20,
-                        ),
-                        Container(
-                          width: MediaQuery.of(context).size.width * 0.8,
-                          height: 50,
-                          decoration: BoxDecoration(
-                            gradient: LinearGradient(
-                              begin: Alignment.center,
-                              end: Alignment.bottomCenter,
-                              colors: [
-                                HexColor("#202441").withOpacity(0.2),
-                                HexColor("#FFFFFF").withOpacity(0.3),
-                              ],
-                            ),
-                            borderRadius: BorderRadius.circular(10),
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.grey,
-                                blurRadius: 4,
-                                offset: Offset(4, 8), // Shadow position
-                              ),
-                            ],
-                          ),
-                          child: Padding(
-                            padding: const EdgeInsets.only(left: 20, right: 10),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Row(
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    ColorFiltered(
-                                      colorFilter: ColorFilter.mode(
-                                          HexColor("#202441"), BlendMode.srcIn),
-                                      child: Image.asset(
-                                        "public/images/logo_receive.png",
-                                        height: 37,
-                                      ),
-                                    ),
-                                    SizedBox(
-                                      width: 10,
-                                    ),
-                                    Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          "Top Up",
-                                          style: TextStyle(
-                                            color: HexColor("#202441"),
-                                            fontSize: 14,
-                                            fontWeight: FontWeight.normal,
-                                          ),
-                                        ),
-                                        Text(
-                                          "08 Mar 2023 - 18.30",
-                                          style: TextStyle(
-                                            color: HexColor("#202441"),
-                                            fontSize: 14,
-                                            fontWeight: FontWeight.normal,
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                                Text(
-                                  "+Rp. 25.000",
-                                  style: TextStyle(
-                                    color: HexColor("#202441"),
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.normal,
-                                  ),
-                                ),
-                                // Text("Indomart"),
-                              ],
-                            ),
-                          ),
-                        ),
-                        SizedBox(
-                          height: 20,
-                        ),
+                          );
+                        }),
                       ],
                     ),
                   ),

@@ -296,6 +296,8 @@ class _InvestorDonationPageState extends State<InvestorDonationPage> {
                                                         .event.keuntungan,
                                                     id_umkm: eventModel
                                                         .event.id_umkm,
+                                                        status: eventModel
+                                                        .event.status,
                                                   );
                                                   eventModel.updateTerkumpul(
                                           event, investorModel.user.id)
